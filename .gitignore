@@ -1,0 +1,31 @@
+.vscode/
+# Maven
+log/
+target/
+
+*.iml
+out
+build
+*.class
+transaction-logs
+.project
+.settings
+target
+.classpath
+WebContent
+bin
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.log
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+.DS_Store
+generated
