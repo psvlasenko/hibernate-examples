@@ -7,12 +7,17 @@ import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
+// p. 165
 @Embeddable
 @AttributeOverrides({
-        @AttributeOverride(name = "name",
-                column = @Column(name = "DIMENSIONS_NAME")),
-        @AttributeOverride(name = "symbol",
-                column = @Column(name = "DIMENSIONS_SYMBOL"))
+        @AttributeOverride(
+            name = "name",
+            column = @Column(name = "DIMENSIONS_NAME")
+        ),
+        @AttributeOverride(
+            name = "symbol",
+            column = @Column(name = "DIMENSIONS_SYMBOL")
+        )
 })
 public class Dimensions extends Measurement {
 
@@ -71,4 +76,5 @@ public class Dimensions extends Measurement {
     public String toString() {
         return String.format("W:%s%s x H:%s%s x D:%s%s", this.height, this.symbol, this.width, this.symbol, this.depth, this.symbol);
     }
+
 }

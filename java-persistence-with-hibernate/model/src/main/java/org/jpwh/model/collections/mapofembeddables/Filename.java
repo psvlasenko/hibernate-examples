@@ -6,7 +6,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Filename {
 
-    @Column(nullable = false) // Must be NOT NULL, part of PK!
+    @Column(nullable = false) // Must be NOT NULL, part of PK! // p. 196
     protected String name;
 
     @Column(nullable = false) // Must be NOT NULL, part of PK!

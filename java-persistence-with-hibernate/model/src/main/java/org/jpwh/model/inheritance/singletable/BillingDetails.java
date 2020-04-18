@@ -12,8 +12,8 @@ import javax.persistence.InheritanceType;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "BD_TYPE")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE) // p. 157
+@DiscriminatorColumn(name = "BD_TYPE") // p. 157
 public abstract class BillingDetails {
 
     @Id
@@ -44,4 +44,5 @@ public abstract class BillingDetails {
     public void setOwner(String owner) {
         this.owner = owner;
     }
+
 }

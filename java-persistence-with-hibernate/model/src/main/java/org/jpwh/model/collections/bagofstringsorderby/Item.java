@@ -21,7 +21,7 @@ public class Item {
     @ElementCollection
     @CollectionTable(name = "IMAGE")
     @Column(name = "FILENAME")
-    @org.hibernate.annotations.CollectionId( // Surrogate PK allows duplicates!
+    @org.hibernate.annotations.CollectionId( // Surrogate PK allows duplicates! p. 187
             columns = @Column(name = "IMAGE_ID"),
             type = @org.hibernate.annotations.Type(type = "long"),
             generator = Constants.ID_GENERATOR)

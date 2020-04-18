@@ -11,7 +11,6 @@ import javax.validation.constraints.Size;
 @Entity
 public class Item {
 
-
     @Id
     @GeneratedValue(generator = Constants.ID_GENERATOR)
     protected Long id;

@@ -36,5 +36,6 @@ public abstract class Measurement {
     public void setSymbol(String symbol) {
         this.symbol = symbol;
     }
+
 }
 

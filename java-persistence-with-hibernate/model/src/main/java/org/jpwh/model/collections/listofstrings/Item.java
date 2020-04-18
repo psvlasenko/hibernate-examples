@@ -21,7 +21,7 @@ public class Item {
 
     @ElementCollection
     @CollectionTable(name = "IMAGE")
-    @OrderColumn // Enables persistent order, Defaults to IMAGES_ORDER
+    @OrderColumn // Enables persistent order, Defaults to IMAGES_ORDER  p. 183
     @Column(name = "FILENAME")
     protected List<String> images = new ArrayList<String>();
 

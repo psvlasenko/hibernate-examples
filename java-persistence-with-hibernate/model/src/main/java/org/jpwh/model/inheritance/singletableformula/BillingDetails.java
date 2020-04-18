@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@org.hibernate.annotations.DiscriminatorFormula(
+@org.hibernate.annotations.DiscriminatorFormula( // p. 159
         "case when CARDNUMBER is not null then 'CC' else 'BA' end"
 )
 public abstract class BillingDetails {

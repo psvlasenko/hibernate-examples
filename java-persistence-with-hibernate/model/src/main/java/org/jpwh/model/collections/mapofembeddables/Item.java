@@ -13,6 +13,7 @@ public class Item {
     @GeneratedValue(generator = Constants.ID_GENERATOR)
     protected Long id;
 
+    // p. 196
     @ElementCollection
     @CollectionTable(name = "IMAGE")
     protected Map<Filename, Image> images = new HashMap<Filename, Image>();

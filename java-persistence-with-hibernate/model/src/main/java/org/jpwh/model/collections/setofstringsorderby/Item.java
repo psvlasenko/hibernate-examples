@@ -1,6 +1,7 @@
 package org.jpwh.model.collections.setofstringsorderby;
 
-import org.jpwh.model.Constants;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -8,8 +9,8 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.LinkedHashSet;
-import java.util.Set;
+
+import org.jpwh.model.Constants;
 
 @Entity
 public class Item {
@@ -22,7 +23,7 @@ public class Item {
     @CollectionTable(name = "IMAGE")
     @Column(name = "FILENAME")
     // @javax.persistence.OrderBy // Only one possible order: "FILENAME asc"
-    @org.hibernate.annotations.OrderBy(clause = "FILENAME desc")
+    @org.hibernate.annotations.OrderBy(clause = "FILENAME desc")  // p. 186
     protected Set<String> images = new LinkedHashSet<String>();
 
     public Long getId() {

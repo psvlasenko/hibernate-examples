@@ -24,7 +24,7 @@ public class Item {
     @CollectionTable(name = "IMAGE")
     @MapKeyColumn(name = "FILENAME")
     @Column(name = "IMAGENAME")
-    @org.hibernate.annotations.SortComparator(ReverseStringComparator.class)
+    @org.hibernate.annotations.SortComparator(ReverseStringComparator.class)  // p. 185
     protected SortedMap<String, String> images = new TreeMap<String, String>();
 
     public Long getId() {

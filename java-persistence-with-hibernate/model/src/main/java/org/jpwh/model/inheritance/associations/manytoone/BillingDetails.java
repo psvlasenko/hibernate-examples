@@ -44,4 +44,5 @@ public abstract class BillingDetails {
     public void pay(int amount) {
         // NOOP
     }
+
 }

@@ -18,8 +18,8 @@ public class Bid {
     @GeneratedValue(generator = Constants.ID_GENERATOR)
     protected Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY) // Defaults to EAGER
-    @JoinColumn(name = "ITEM_ID", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY) // Defaults to EAGER p. 199
+    @JoinColumn(name = "ITEM_ID", nullable = false) // p.200
     protected Item item;
 
     @NotNull

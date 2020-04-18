@@ -5,7 +5,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "CREDITCARD_ID")
+@PrimaryKeyJoinColumn(name = "CREDITCARD_ID") // p. 161
 public class CreditCard extends BillingDetails {
 
     @NotNull
@@ -53,4 +53,5 @@ public class CreditCard extends BillingDetails {
     public void setExpYear(String expYear) {
         this.expYear = expYear;
     }
+
 }

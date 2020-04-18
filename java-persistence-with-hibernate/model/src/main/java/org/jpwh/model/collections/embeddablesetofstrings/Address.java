@@ -24,6 +24,7 @@ public class Address {
     @Column(nullable = false)
     protected String city;
 
+    // p. 197
     @ElementCollection
     @CollectionTable(
             name = "CONTACT", // Defaults to USER_CONTACTS

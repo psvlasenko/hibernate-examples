@@ -11,7 +11,7 @@ import javax.persistence.InheritanceType;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE) // p. 157
 @DiscriminatorColumn(name = "BD_TYPE")
 public abstract class BillingDetails {
 

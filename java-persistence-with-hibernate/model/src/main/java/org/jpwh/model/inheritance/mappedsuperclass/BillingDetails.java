@@ -3,7 +3,7 @@ package org.jpwh.model.inheritance.mappedsuperclass;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
-@MappedSuperclass
+@MappedSuperclass // p. 151
 public abstract class BillingDetails {
 
     @NotNull
@@ -25,4 +25,5 @@ public abstract class BillingDetails {
     public void setOwner(String owner) {
         this.owner = owner;
     }
+
 }

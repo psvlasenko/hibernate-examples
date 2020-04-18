@@ -20,7 +20,7 @@ public class Item {
 
     @ElementCollection
     @CollectionTable(name = "IMAGE")
-    @MapKeyColumn(name = "FILENAME") // Optional, defaults to IMAGES_KEY
+    @MapKeyColumn(name = "FILENAME") // Optional, defaults to IMAGES_KEY p. 194
     protected Map<String, Image> images = new HashMap<String, Image>();
 
     public Long getId() {

@@ -4,7 +4,6 @@ package org.jpwh.test.associations;
 import org.jpwh.env.JPATest;
 import org.jpwh.model.associations.onetomany.bidirectional.Bid;
 import org.jpwh.model.associations.onetomany.bidirectional.Item;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
@@ -14,6 +13,7 @@ import java.util.Collection;
 
 import static org.testng.Assert.assertEquals;
 
+// p. 203
 public class OneToManyBidirectional extends JPATest {
 
     @Override

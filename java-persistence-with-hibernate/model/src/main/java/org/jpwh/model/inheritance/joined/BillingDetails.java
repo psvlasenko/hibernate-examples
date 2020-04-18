@@ -40,4 +40,5 @@ public abstract class BillingDetails {
     public void setOwner(String owner) {
         this.owner = owner;
     }
+
 }

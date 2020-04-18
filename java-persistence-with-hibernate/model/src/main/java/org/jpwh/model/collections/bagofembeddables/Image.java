@@ -6,7 +6,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Image {
 
-    @Column(nullable = true) // Can be null if we have surrogate PK!
+    @Column(nullable = true) // Can be null if we have surrogate PK! p. 193
     protected String title;
 
     @Column(nullable = false)

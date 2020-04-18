@@ -10,7 +10,7 @@ import javax.persistence.InheritanceType;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS) // p. 154
 public abstract class BillingDetails {
 
     @Id
@@ -40,4 +40,5 @@ public abstract class BillingDetails {
     public void setOwner(String owner) {
         this.owner = owner;
     }
+
 }

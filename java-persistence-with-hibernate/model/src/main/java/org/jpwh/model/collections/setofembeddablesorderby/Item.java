@@ -15,7 +15,7 @@ public class Item {
 
     @ElementCollection
     @CollectionTable(name = "IMAGE")
-    @OrderBy("filename, width DESC")
+    @OrderBy("filename, width DESC") // p. 192
     protected Set<Image> images = new LinkedHashSet<Image>();
 
     public Long getId() {

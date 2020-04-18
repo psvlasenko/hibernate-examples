@@ -21,7 +21,7 @@ public class Item {
 
     @ElementCollection
     @CollectionTable(name = "IMAGE")
-    @MapKeyColumn(name = "FILENAME")
+    @MapKeyColumn(name = "FILENAME") // p. 184
     @Column(name = "IMAGENAME")
     protected Map<String, String> images = new HashMap<String, String>();
 

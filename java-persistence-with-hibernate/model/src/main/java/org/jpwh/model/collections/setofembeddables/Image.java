@@ -16,7 +16,7 @@ public class Image {
 
     protected int height;
 
-    @org.hibernate.annotations.Parent
+    @org.hibernate.annotations.Parent // p. 192
     protected Item item;
 
     public Image() {

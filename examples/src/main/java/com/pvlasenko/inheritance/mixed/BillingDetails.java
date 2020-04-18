@@ -1,6 +1,7 @@
 package com.pvlasenko.inheritance.mixed;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,6 +13,7 @@ import com.pvlasenko.Constants;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE) // JPWH - p. 157
+@DiscriminatorColumn(name = "BD_TYPE")
 public abstract class BillingDetails {
 
     @Id

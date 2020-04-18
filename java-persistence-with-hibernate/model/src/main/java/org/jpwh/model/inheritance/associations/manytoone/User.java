@@ -16,7 +16,7 @@ public class User {
     @NotNull
     protected String username;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)  // p. 171
     protected BillingDetails defaultBilling;
 
     public User() {
@@ -45,7 +45,6 @@ public class User {
     public void setDefaultBilling(BillingDetails defaultBilling) {
         this.defaultBilling = defaultBilling;
     }
-
 
     // ...
 }

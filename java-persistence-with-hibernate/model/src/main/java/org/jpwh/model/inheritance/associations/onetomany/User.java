@@ -18,7 +18,7 @@ public class User {
     @NotNull
     protected String username;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user") // p. 173
     protected Set<BillingDetails> billingDetails = new HashSet<>();
 
     public User() {

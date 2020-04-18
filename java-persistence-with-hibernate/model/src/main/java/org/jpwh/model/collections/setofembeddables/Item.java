@@ -19,8 +19,8 @@ public class Item {
     @GeneratedValue(generator = Constants.ID_GENERATOR)
     protected Long id;
 
-    @ElementCollection
-    @CollectionTable(name = "IMAGE")
+    @ElementCollection // p. 191
+    @CollectionTable(name = "IMAGE") // p. 191
     @AttributeOverride(
             name = "filename",
             column = @Column(name = "FNAME", nullable = false)

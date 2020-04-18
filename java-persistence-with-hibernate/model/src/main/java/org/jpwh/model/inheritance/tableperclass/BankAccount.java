@@ -49,4 +49,5 @@ public class BankAccount extends BillingDetails {
     public void setSwift(String swift) {
         this.swift = swift;
     }
+
 }

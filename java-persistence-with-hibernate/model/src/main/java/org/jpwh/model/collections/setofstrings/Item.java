@@ -1,6 +1,7 @@
 package org.jpwh.model.collections.setofstrings;
 
-import org.jpwh.model.Constants;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -9,8 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import java.util.HashSet;
-import java.util.Set;
+
+import org.jpwh.model.Constants;
 
 @Entity
 public class Item {
@@ -19,10 +20,10 @@ public class Item {
     @GeneratedValue(generator = Constants.ID_GENERATOR)
     protected Long id;
 
-    @ElementCollection
-    @CollectionTable(
-            name = "IMAGE", // Defaults to ITEM_IMAGES
-            joinColumns = @JoinColumn(name = "ITEM_ID")) // Default, actually
+    @ElementCollection  // p. 180
+    @CollectionTable(   // p. 180
+        name = "IMAGE", // Defaults to ITEM_IMAGES
+        joinColumns = @JoinColumn(name = "ITEM_ID")) // Default, actually
     @Column(name = "FILENAME") // Defaults to IMAGES
     protected Set<String> images = new HashSet<String>(); // Initialize field here
 

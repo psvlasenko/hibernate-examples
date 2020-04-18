@@ -48,4 +48,5 @@ public class Weight extends Measurement {
     public String toString() {
         return String.format("%s%s", this.value, this.symbol);
     }
+
 }
