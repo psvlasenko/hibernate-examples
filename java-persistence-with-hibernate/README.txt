@@ -1,6 +1,7 @@
 ==============================================================================
 Java Persistence with Hibernate - Second Edition
 
+https://github.com/sunrenjie/jpwh-2e-examples
 http://www.manning.com/bauer3/
 
 ==============================================================================

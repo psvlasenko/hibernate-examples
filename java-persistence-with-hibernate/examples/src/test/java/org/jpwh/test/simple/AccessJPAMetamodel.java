@@ -41,37 +41,22 @@ public class AccessJPAMetamodel extends JPATest {
         assertEquals(managedTypes.size(), 1);
 
         ManagedType itemType = managedTypes.iterator().next();
-        assertEquals(
-            itemType.getPersistenceType(),
-            Type.PersistenceType.ENTITY
-        );
+        assertEquals(itemType.getPersistenceType(), Type.PersistenceType.ENTITY);
 
-        SingularAttribute nameAttribute =
-            itemType.getSingularAttribute("name");
-        assertEquals(
-            nameAttribute.getJavaType(),
-            String.class
-        );
+        SingularAttribute nameAttribute = itemType.getSingularAttribute("name");
+        assertEquals(nameAttribute.getJavaType(), String.class);
+
         assertEquals(
             nameAttribute.getPersistentAttributeType(),
             Attribute.PersistentAttributeType.BASIC
         );
-        assertFalse(
-            nameAttribute.isOptional() // NOT NULL
-        );
+        System.out.println(nameAttribute.isOptional());
+        assertFalse(nameAttribute.isOptional()); // NOT NULL p.83
 
-        SingularAttribute auctionEndAttribute =
-            itemType.getSingularAttribute("auctionEnd");
-        assertEquals(
-            auctionEndAttribute.getJavaType(),
-            Date.class
-        );
-        assertFalse(
-            auctionEndAttribute.isCollection()
-        );
-        assertFalse(
-            auctionEndAttribute.isAssociation()
-        );
+        SingularAttribute auctionEndAttribute = itemType.getSingularAttribute("auctionEnd");
+        assertEquals(auctionEndAttribute.getJavaType(), Date.class);
+        assertFalse(auctionEndAttribute.isCollection());
+        assertFalse(auctionEndAttribute.isAssociation());
     }
 
     @Test

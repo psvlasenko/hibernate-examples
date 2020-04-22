@@ -365,6 +365,7 @@ public class Restriction extends QueryingTest {
 
                 CriteriaQuery criteria = cb.createQuery();
                 Root<Item> i = criteria.from(Item.class);
+
                 criteria.select(i).where(
                     cb.gt(
                         cb.function(

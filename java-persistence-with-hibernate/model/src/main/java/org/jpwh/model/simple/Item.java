@@ -1,5 +1,6 @@
 package org.jpwh.model.simple;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import javax.persistence.FetchType;
@@ -37,7 +38,9 @@ public class Item {
         max = 255,
         message = "Name is required, maximum 255 characters."
     )
+    @Column(nullable = false)
     protected String name;
+    protected String myName;
 
     @Future
     protected Date auctionEnd;

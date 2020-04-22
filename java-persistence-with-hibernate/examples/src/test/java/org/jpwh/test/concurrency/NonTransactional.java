@@ -35,21 +35,21 @@ public class NonTransactional extends JPATest {
         }
 
         {
-            /* 
+            /*
                No transaction is active when we create the <code>EntityManager</code>. The
                persistence context is now in a special <em>unsynchronized</em> mode, Hibernate
                will not flush automatically at any time.
              */
             EntityManager em = JPA.createEntityManager();
 
-            /* 
+            /*
                You can access the database to read data; this operation will execute a
                <code>SELECT</code> statement, sent to the database in auto-commit mode.
              */
             Item item = em.find(Item.class, ITEM_ID);
             item.setName("New Name");
 
-            /* 
+            /*
                Usually Hibernate would flush the persistence context when you execute a
                <code>Query</code>. However, because the context is <em>unsynchronized</em>,
                flushing will not occur and the query will return the old, original database
@@ -59,12 +59,12 @@ public class NonTransactional extends JPATest {
                you are in <em>synchronized</em> mode.
              */
             assertEquals(
-                em.createQuery("select i.name from Item i where i.id = :id)")
+                em.createQuery("select i.name from Item i where i.id = :id")
                     .setParameter("id", ITEM_ID).getSingleResult(),
                 "Original Name"
             );
 
-            /* 
+            /*
                Retrieving a managed entity instance involves a lookup, during JDBC
                result set marshaling, in the current persistence context. The
                already loaded <code>Item</code> instance with the changed name will
@@ -73,12 +73,12 @@ public class NonTransactional extends JPATest {
                even without a system transaction.
              */
             assertEquals(
-                ((Item) em.createQuery("select i from Item i where i.id = :id)")
+                ((Item) em.createQuery("select i from Item i where i.id = :id")
                     .setParameter("id", ITEM_ID).getSingleResult()).getName(),
                 "New Name"
             );
 
-            /* 
+            /*
                If you try to flush the persistence context manually, to store the new
                <code>Item#name</code>, Hibernate will throw a
                <code>javax.persistence.TransactionRequiredException</code>. You are
@@ -87,7 +87,7 @@ public class NonTransactional extends JPATest {
             */
             // em.flush();
 
-            /* 
+            /*
                You can roll back the change you made with the <code>refresh()</code>
                method, it loads the current <code>Item</code> state from the database
                and overwrites the change you have made in memory.
@@ -102,7 +102,7 @@ public class NonTransactional extends JPATest {
             EntityManager em = JPA.createEntityManager();
 
             Item newItem = new Item("New Item");
-            /* 
+            /*
                You can call <code>persist()</code> to save a transient entity instance with an
                unsynchronized persistence context. Hibernate will only fetch a new identifier
                value, typically by calling a database sequence, and assign it to the instance.
@@ -113,7 +113,7 @@ public class NonTransactional extends JPATest {
             em.persist(newItem);
             assertNotNull(newItem.getId());
 
-            /* 
+            /*
                When you are ready to store the changes, join the persistence context with
                a transaction. Synchronization and flushing will occur as usual, when the
                transaction commits. Hibernate writes all queued operations to the database.
@@ -129,7 +129,7 @@ public class NonTransactional extends JPATest {
             tx.begin();
             EntityManager em = JPA.createEntityManager();
             assertEquals(em.find(Item.class, ITEM_ID).getName(), "Original Name");
-            assertEquals(em.createQuery("select count(i) from Item i)").getSingleResult(), 2l);
+            assertEquals(em.createQuery("select count(i) from Item i").getSingleResult(), 2l);
             tx.commit();
             em.close();
         } finally {
@@ -177,7 +177,7 @@ public class NonTransactional extends JPATest {
         try {
             tx.begin();
             EntityManager em = JPA.createEntityManager();
-            assertEquals(em.createQuery("select count(i) from Item i)").getSingleResult(), 1l);
+            assertEquals(em.createQuery("select count(i) from Item i").getSingleResult(), 1l);
             tx.commit();
             em.close();
         } finally {

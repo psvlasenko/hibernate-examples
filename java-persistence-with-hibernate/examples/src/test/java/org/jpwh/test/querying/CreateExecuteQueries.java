@@ -161,9 +161,8 @@ public class CreateExecuteQueries extends QueryingTest {
                     "select i from Item i"
                 );
 
-                org.hibernate.Query hibernateQuery =
-                    query.unwrap(org.hibernate.jpa.HibernateQuery.class)
-                        .getHibernateQuery();
+                org.hibernate.query.Query hibernateQuery =
+                    query.unwrap(org.hibernate.query.Query.class);
 
                 hibernateQuery.getQueryString();
                 hibernateQuery.getReturnAliases();
@@ -327,32 +326,32 @@ public class CreateExecuteQueries extends QueryingTest {
             { // Getting total count with a cursor
                 Query query = em.createQuery("select i from Item i");
 
-                /* 
+                /*
                    Unwrap the Hibernate API to use scrollable cursors.
                  */
-                org.hibernate.Query hibernateQuery =
-                    query.unwrap(org.hibernate.jpa.HibernateQuery.class).getHibernateQuery();
+                org.hibernate.query.Query hibernateQuery =
+                    query.unwrap(org.hibernate.query.Query.class);
 
-                /* 
+                /*
                    Execute the query with a database cursor; this does not retrieve the
                    result set into memory.
                  */
                 org.hibernate.ScrollableResults cursor =
                         hibernateQuery.scroll(org.hibernate.ScrollMode.SCROLL_INSENSITIVE);
 
-                /* 
+                /*
                    Jump to the last row of the result in the database, then get the row number.
                    Since row numbers are zero-based, add one to get the total count of rows.
                  */
                 cursor.last();
                 int count = cursor.getRowNumber()+1;
 
-                /* 
+                /*
                    You must close the database cursor.
                  */
                 cursor.close();
 
-                /* 
+                /*
                    Now execute the query again and retrieve an arbitrary page of data.
                  */
                 query.setFirstResult(40).setMaxResults(10);

@@ -60,12 +60,12 @@ public class HibernateSQLQueries extends QueryingTest {
             {
                 // Positional parameter binding
                 Long ITEM_ID = testData.items.getFirstId();
-                org.hibernate.SQLQuery query = session.createSQLQuery(
+                System.out.println(ITEM_ID);
+                org.hibernate.query.NativeQuery query = session.createSQLQuery(
                     "select * from ITEM where ID = ?"
                 );
                 query.addEntity(Item.class);
-                query.setParameter(0, ITEM_ID); // Starts at zero!
-
+                query.setParameter(1, ITEM_ID); // Starts at zero!
                 List<Item> result = query.list();
                 assertEquals(result.size(), 1);
                 assertEquals(result.get(0).getId(), ITEM_ID);
@@ -202,7 +202,7 @@ public class HibernateSQLQueries extends QueryingTest {
             em.clear();
             {
                 // Automatic marshaling of resultset with eager fetch of collection
-                /* 
+                /*
                    The query (outer) joins the <code>ITEM</code> and <code>BID</code> tables, the projection
                    returns all columns required to construct <code>Item</code> and <code>Bid</code> instances.
                    The query renames duplicate columns such as <code>ID</code> with aliases, so field names are
@@ -224,7 +224,7 @@ public class HibernateSQLQueries extends QueryingTest {
                         "b.BIDDER_ID " +
                         "from ITEM i left outer join BID b on i.ID = b.ITEM_ID"
                 );
-                /* 
+                /*
                    Because of the renamed fields, you have to map all columns to their respective
                    entity property.
                  */
@@ -238,7 +238,7 @@ public class HibernateSQLQueries extends QueryingTest {
                     .addProperty("buyNowPrice", "BUYNOWPRICE")
                     .addProperty("seller", "SELLER_ID");
 
-                /* 
+                /*
                    You add a <code>FetchReturn</code> for the <code>bids</code> collection with the alias of the
                    owning entity <code>i</code>, and map the <code>key</code> and <code>element</code> special
                    properties to the foreign key column <code>BID_ITEM_ID</code> and the identifier of the
@@ -256,21 +256,21 @@ public class HibernateSQLQueries extends QueryingTest {
 
                 List<Object[]> result = query.list();
 
-                /* 
+                /*
                    The number of rows in the result set is a product: 1 item has 3 bids, 1 item has 1 bid, and
                    the last item has no bids, for a total of 5 rows in the result.
                  */
                 assertEquals(result.size(), 5);
 
                 for (Object[] tuple : result) {
-                    /* 
+                    /*
                        The first element of the result tuple is the <code>Item</code> instance; Hibernate initialized
                        the bids collection.
                      */
                     Item item = (Item) tuple[0];
                     assertTrue(Persistence.getPersistenceUtil().isLoaded(item, "bids"));
 
-                    /* 
+                    /*
                        The second element of the result tuple is each <code>Bid</code>.
                      */
                     Bid bid = (Bid) tuple[1];
@@ -330,12 +330,12 @@ public class HibernateSQLQueries extends QueryingTest {
                     "select ID, NAME, AUCTIONEND from ITEM"
                 );
 
-                /* 
+                /*
                    You can use an existing result mapping.
                  */
                 // query.setResultSetMapping("ItemSummaryResult");
 
-                /* 
+                /*
                    Alternatively, you can map the fields returned by the query as scalar values. Without a
                    result transformer, you would simply get an <code>Object[]</code> for each result row.
                  */
@@ -343,7 +343,7 @@ public class HibernateSQLQueries extends QueryingTest {
                 query.addScalar("NAME");
                 query.addScalar("AUCTIONEND");
 
-                /* 
+                /*
                    Apply a built-in result transformer to turn the <code>Object[]</code> into instances
                    of <code>ItemSummary</code>.
                  */

@@ -1,6 +1,6 @@
 package org.jpwh.converter;
 
-import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.Type;
 import org.hibernate.usertype.CompositeUserType;
@@ -16,8 +16,7 @@ import java.sql.SQLException;
 import java.util.Currency;
 import java.util.Properties;
 
-public class MonetaryAmountUserType
-    implements CompositeUserType, DynamicParameterizedType {
+public class MonetaryAmountUserType implements CompositeUserType, DynamicParameterizedType {
 
     protected Currency convertTo;
 
@@ -77,8 +76,11 @@ public class MonetaryAmountUserType
      * a <code>String</code> representation is an easy solution. Or, because <code>MonetaryAmount</code> is actually
      * <code>Serializable</code>, you could return it directly.
      */
-    public Serializable disassemble(Object value,
-                                    SessionImplementor session) {
+    @Override
+    public Serializable disassemble(
+        Object value,
+        SharedSessionContractImplementor session
+    ) {
         return value.toString();
     }
 
@@ -89,8 +91,12 @@ public class MonetaryAmountUserType
      * representation. Or, if have stored a serialized <code>MonetaryAmount</code>,
      * you could return it directly.
      */
-    public Object assemble(Serializable cached,
-                           SessionImplementor session, Object owner) {
+    @Override
+    public Object assemble(
+        Serializable cached,
+        SharedSessionContractImplementor session,
+        Object owner
+    ) {
         return MonetaryAmount.fromString((String) cached);
     }
 
@@ -99,8 +105,13 @@ public class MonetaryAmountUserType
      * need to return a copy of the <code>original</code>. Or, if your value type is
      * immutable, like <code>MonetaryAmount</code>, you can simply return the original.
      */
-    public Object replace(Object original, Object target,
-                          SessionImplementor session, Object owner) {
+    @Override
+    public Object replace(
+        Object original,
+        Object target,
+        SharedSessionContractImplementor session,
+        Object owner
+    ) {
         return original;
     }
 
@@ -123,10 +134,13 @@ public class MonetaryAmountUserType
      * We take the <code>amount</code> and <code>currency</code> values as given
      * in the query result, and create a new instance of <code>MonetaryAmount</code>.
      */
-    public Object nullSafeGet(ResultSet resultSet,
-                              String[] names,
-                              SessionImplementor session,
-                              Object owner) throws SQLException {
+    @Override
+    public Object nullSafeGet(
+        ResultSet resultSet,
+        String[] names,
+        SharedSessionContractImplementor session,
+        Object owner
+    ) throws SQLException {
 
         BigDecimal amount = resultSet.getBigDecimal(names[0]);
         if (resultSet.wasNull())
@@ -144,10 +158,13 @@ public class MonetaryAmountUserType
      * was <code>null</code>, in that case, we call <code>setNull()</code> to
      * prepare the statement.)
      */
-    public void nullSafeSet(PreparedStatement statement,
-                            Object value,
-                            int index,
-                            SessionImplementor session) throws SQLException {
+    @Override
+    public void nullSafeSet(
+        PreparedStatement statement,
+        Object value,
+        int index,
+        SharedSessionContractImplementor session
+    ) throws SQLException {
 
         if (value == null) {
             statement.setNull(

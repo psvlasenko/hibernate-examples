@@ -67,6 +67,7 @@ public class MappingEmbeddables extends JPATest {
             Address homeAddress = new Address("Some Street 123", "12345", null); // NULL city!
             user.setHomeAddress(homeAddress);
             em.persist(user);
+            System.out.println("*************errrrrrrrrrrrr****************");
 
             try {
                 // Hibernate tries the INSERT but fails
@@ -77,6 +78,7 @@ public class MappingEmbeddables extends JPATest {
                 // simply mark the transaction for rollback.
 
             } catch (Exception ex) {
+                System.out.println("*************errrrrrrrrrrrr****************");
                 throw unwrapCauseOfType(ex, org.hibernate.exception.ConstraintViolationException.class);
             }
         } finally {

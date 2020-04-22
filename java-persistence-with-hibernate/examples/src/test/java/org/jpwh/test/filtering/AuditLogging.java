@@ -13,15 +13,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.transaction.UserTransaction;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Logger;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 public class AuditLogging extends JPATest {
-
-    final private static Logger log = Logger.getLogger(AuditLogging.class.getName());
 
     @Override
     public void configurePersistenceUnit() throws Exception {
@@ -32,12 +27,11 @@ public class AuditLogging extends JPATest {
     public void writeAuditLog() throws Throwable {
         UserTransaction tx = TM.getUserTransaction();
         try {
-
             Long CURRENT_USER_ID;
             {
                 tx.begin();
                 EntityManager em = JPA.createEntityManager();
-                User currentUser = new User("johndoe");
+                var currentUser = new User("johndoe");
                 em.persist(currentUser);
                 tx.commit();
                 em.close();
@@ -46,23 +40,23 @@ public class AuditLogging extends JPATest {
 
             EntityManagerFactory emf = JPA.getEntityManagerFactory();
 
-            Map<String, String> properties = new HashMap<String, String>();
+            var properties = new HashMap<String, String>();
+
             properties.put(
-                org.hibernate.jpa.AvailableSettings.SESSION_INTERCEPTOR,
+                org.hibernate.cfg.AvailableSettings.SESSION_SCOPED_INTERCEPTOR,
                 AuditLogInterceptor.class.getName()
             );
 
             EntityManager em = emf.createEntityManager(properties);
 
             Session session = em.unwrap(Session.class);
-            AuditLogInterceptor interceptor =
-                (AuditLogInterceptor) ((SessionImplementor) session).getInterceptor();
+            AuditLogInterceptor interceptor = (AuditLogInterceptor) ((SessionImplementor) session).getInterceptor();
             interceptor.setCurrentSession(session);
             interceptor.setCurrentUserId(CURRENT_USER_ID);
 
             tx.begin();
             em.joinTransaction();
-            Item item = new Item("Foo");
+            var item = new Item("Foo");
             em.persist(item);
             tx.commit();
             em.clear();

@@ -14,6 +14,7 @@ import java.util.Set;
 
 import static org.testng.Assert.*;
 
+// p. 77
 public class ModelOperations {
 
     @Test
@@ -58,6 +59,7 @@ public class ModelOperations {
         assertEquals(failedPropertyName, "auctionEnd");
 
         if (Locale.getDefault().getLanguage().equals("en"))
+            System.out.println(violation.getMessage());
             assertEquals(violation.getMessage(), "must be in the future");
     }
 

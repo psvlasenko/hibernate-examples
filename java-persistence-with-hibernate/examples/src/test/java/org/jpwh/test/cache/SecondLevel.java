@@ -2,9 +2,8 @@ package org.jpwh.test.cache;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.stat.NaturalIdCacheStatistics;
+import org.hibernate.stat.CacheRegionStatistics;
 import org.hibernate.stat.QueryStatistics;
-import org.hibernate.stat.SecondLevelCacheStatistics;
 import org.hibernate.stat.Statistics;
 import org.jpwh.env.JPATest;
 import org.jpwh.model.cache.Bid;
@@ -145,8 +144,8 @@ public class SecondLevel extends JPATest {
                         .unwrap(SessionFactory.class)
                         .getStatistics();
 
-                SecondLevelCacheStatistics itemCacheStats =
-                    stats.getSecondLevelCacheStatistics(Item.class.getName());
+                        CacheRegionStatistics itemCacheStats =
+                    stats.getDomainDataRegionStatistics(Item.class.getName());
                 assertEquals(itemCacheStats.getElementCountInMemory(), 3);
                 assertEquals(itemCacheStats.getHitCount(), 0);
 
@@ -155,8 +154,8 @@ public class SecondLevel extends JPATest {
                 assertEquals(itemCacheStats.getHitCount(), 1);
 
                 // Initializing a proxy will also hit the second-level cache
-                SecondLevelCacheStatistics userCacheStats =
-                    stats.getSecondLevelCacheStatistics(User.class.getName());
+                CacheRegionStatistics userCacheStats =
+                    stats.getDomainDataRegionStatistics(User.class.getName());
                 assertEquals(userCacheStats.getElementCountInMemory(), 3);
                 assertEquals(userCacheStats.getHitCount(), 0);
 
@@ -166,32 +165,32 @@ public class SecondLevel extends JPATest {
                 assertEquals(userCacheStats.getHitCount(), 1);
 
                 // Get the Item#bids collection and its referenced Bid entity instances
-                /* 
+                /*
                    The statistics tell you that there are three <code>Item#bids</code>
                    collections in the cache (one for each <code>Item</code>). No
                    successful cache lookups have occurred so far.
                  */
-                SecondLevelCacheStatistics bidsCacheStats =
-                    stats.getSecondLevelCacheStatistics(Item.class.getName() + ".bids");
+                CacheRegionStatistics bidsCacheStats =
+                    stats.getDomainDataRegionStatistics(Item.class.getName() + ".bids");
                 assertEquals(bidsCacheStats.getElementCountInMemory(), 3);
                 assertEquals(bidsCacheStats.getHitCount(), 0);
 
-                /* 
+                /*
                    The entity cache of <code>Bid</code> has five records, and you
                    haven't accessed it either.
                  */
-                SecondLevelCacheStatistics bidCacheStats =
-                    stats.getSecondLevelCacheStatistics(Bid.class.getName());
+                CacheRegionStatistics bidCacheStats =
+                    stats.getDomainDataRegionStatistics(Bid.class.getName());
                 assertEquals(bidCacheStats.getElementCountInMemory(), 5);
                 assertEquals(bidCacheStats.getHitCount(), 0);
 
-                /* 
+                /*
                    Initializing the collection will read the data from both caches.
                  */
                 Set<Bid> bids = item.getBids();
                 assertEquals(bids.size(), 3);
 
-                /* 
+                /*
                    The cache found one collection, as well as the data for
                    its three <code>Bid</code> elements.
                  */
@@ -225,8 +224,8 @@ public class SecondLevel extends JPATest {
                         .unwrap(SessionFactory.class)
                         .getStatistics();
 
-                SecondLevelCacheStatistics itemCacheStats =
-                    stats.getSecondLevelCacheStatistics(Item.class.getName());
+                CacheRegionStatistics itemCacheStats =
+                    stats.getDomainDataRegionStatistics(Item.class.getName());
 
                 // Bypass the cache when retrieving an entity instance by identifier
                 {
@@ -278,7 +277,7 @@ public class SecondLevel extends JPATest {
             // Clear all natural ID cache regions
             JPA.getEntityManagerFactory().getCache()
                 .unwrap(org.hibernate.Cache.class)
-                .evictNaturalIdRegions();
+                .evictNaturalIdData();
 
             // Clear the User entity cache region
             JPA.getEntityManagerFactory().getCache().evict(User.class);
@@ -288,8 +287,7 @@ public class SecondLevel extends JPATest {
                 EntityManager em = JPA.createEntityManager();
                 Session session = em.unwrap(Session.class);
 
-                NaturalIdCacheStatistics userIdStats =
-                    stats.getNaturalIdCacheStatistics(User.class.getName() + "##NaturalId");
+                CacheRegionStatistics userIdStats = stats.getDomainDataRegionStatistics(User.class.getName() + "##NaturalId");
 
                 assertEquals(userIdStats.getElementCountInMemory(), 0);
 
@@ -305,8 +303,7 @@ public class SecondLevel extends JPATest {
                 assertEquals(userIdStats.getMissCount(), 1);
                 assertEquals(userIdStats.getElementCountInMemory(), 1);
 
-                SecondLevelCacheStatistics userStats =
-                    stats.getSecondLevelCacheStatistics(User.class.getName());
+                CacheRegionStatistics userStats = stats.getDomainDataRegionStatistics(User.class.getName());
                 assertEquals(userStats.getHitCount(), 0);
                 assertEquals(userStats.getMissCount(), 1);
                 assertEquals(userStats.getElementCountInMemory(), 1);
@@ -320,15 +317,15 @@ public class SecondLevel extends JPATest {
                 EntityManager em = JPA.createEntityManager();
                 Session session = em.unwrap(Session.class);
 
-                /* 
+                /*
                    The natural identifier cache region for <code>User</code>s
                    has one element.
                  */
-                NaturalIdCacheStatistics userIdStats =
-                    stats.getNaturalIdCacheStatistics(User.class.getName() + "##NaturalId");
+                CacheRegionStatistics userIdStats =
+                    stats.getDomainDataRegionStatistics(User.class.getName() + "##NaturalId");
                 assertEquals(userIdStats.getElementCountInMemory(), 1);
 
-                /* 
+                /*
                    The <code>org.hibernate.Session</code> API performs natural
                    identifier lookup; this is the only API for accessing the
                    natural identifier cache.
@@ -339,18 +336,17 @@ public class SecondLevel extends JPATest {
 
                 assertNotNull(user);
 
-                /* 
+                /*
                    You had a cache hit for the natural identifier lookup; the
                    cache returned the identifier value of "johndoe".
                  */
                 assertEquals(userIdStats.getHitCount(), 1);
 
-                /* 
+                /*
                    You also had a cache hit for the actual entity data of
                    that <code>User</code>.
                  */
-                SecondLevelCacheStatistics userStats =
-                    stats.getSecondLevelCacheStatistics(User.class.getName());
+                CacheRegionStatistics userStats = stats.getDomainDataRegionStatistics(User.class.getName());
                 assertEquals(userStats.getHitCount(), 1);
 
                 tx.commit();
@@ -409,7 +405,7 @@ public class SecondLevel extends JPATest {
 
                 String queryString = "select i from Item i where i.name like :n";
 
-                /* 
+                /*
                    You have to enable caching for a particular query. Without
                    the <code>org.hibernate.cachable</code> hint, the
                    result won't be stored in the query result cache.
@@ -418,13 +414,13 @@ public class SecondLevel extends JPATest {
                     .setParameter("n", "I%")
                     .setHint("org.hibernate.cacheable", true);
 
-                /* 
+                /*
                    Hibernate will now execute the SQL query and retrieve the
                    result set into memory.                 */
                 List<Item> items = query.getResultList();
                 assertEquals(items.size(), 3);
 
-                /* 
+                /*
                    Using the statistics API, you can find out more details.
                    This is the first time you execute this query, so you get
                    a cache miss, not a hit. Hibernate puts the query and
@@ -436,12 +432,11 @@ public class SecondLevel extends JPATest {
                 assertEquals(queryStats.getCacheMissCount(), 1);
                 assertEquals(queryStats.getCachePutCount(), 1);
 
-                /* 
+                /*
                    The actual entity instance data retrieved in the result set is
                    stored in the entity cache region, not in the query result cache.
                  */
-                SecondLevelCacheStatistics itemCacheStats =
-                    stats.getSecondLevelCacheStatistics(Item.class.getName());
+                CacheRegionStatistics itemCacheStats = stats.getDomainDataRegionStatistics(Item.class.getName());
                 assertEquals(itemCacheStats.getElementCountInMemory(), 3);
 
                 tx.commit();

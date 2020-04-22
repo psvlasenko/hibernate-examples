@@ -1,12 +1,15 @@
 package org.jpwh.env;
 
-import org.hibernate.internal.util.StringHelper;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.util.HashMap;
-import java.util.Map;
+
+import org.hibernate.internal.util.StringHelper;
 
 /**
  * Creates an EntityManagerFactory.
@@ -36,9 +39,13 @@ public class JPASetup {
 
         // Really the only way how we can get hbm.xml files into an explicit persistence
         // unit (where Hibernate scanning is disabled)
+        Iterator<String> hbmResourcesIterator = hbmResources != null
+            ? Arrays.stream(hbmResources).iterator()
+            : Arrays.stream(new String[0]).iterator();
+
         properties.put(
             "hibernate.hbmxml.files",
-            StringHelper.join(",", hbmResources != null ? hbmResources : new String[0])
+            StringHelper.join(",", hbmResourcesIterator)
         );
 
         // We don't want to repeat these settings for all units in persistence.xml, so

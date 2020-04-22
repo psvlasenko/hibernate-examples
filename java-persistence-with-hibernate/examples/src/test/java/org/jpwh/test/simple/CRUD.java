@@ -2,7 +2,6 @@ package org.jpwh.test.simple;
 
 import org.jpwh.env.JPATest;
 import org.jpwh.model.simple.Item;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;

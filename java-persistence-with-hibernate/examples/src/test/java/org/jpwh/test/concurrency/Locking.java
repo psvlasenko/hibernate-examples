@@ -41,7 +41,7 @@ public class Locking extends Versioning {
             BigDecimal totalPrice = new BigDecimal(0);
             for (Long categoryId : CATEGORIES) {
 
-                /* 
+                /*
                    For each <code>Category</code>, query all <code>Item</code> instances in
                    <code>PESSIMISTIC_READ</code> lock mode. Hibernate will lock the rows in
                    the database with the SQL query. If possible, wait for 5 seconds if some
@@ -55,7 +55,7 @@ public class Locking extends Versioning {
                         .setParameter("catId", categoryId)
                         .getResultList();
 
-                /* 
+                /*
                    If the query returns successfully, you know that you hold an exclusive lock
                    on the data and no other transaction can access it with an exclusive lock or
                    modify it until this transaction commits.
@@ -139,7 +139,9 @@ public class Locking extends Versioning {
                                     assertTrue(ex instanceof LockTimeoutException);
                                 } else {
                                     // On H2 and Oracle we get a PessimisticLockException
-                                    assertTrue(ex instanceof PessimisticLockException);
+                                    System.out.println(TM.databaseProduct);
+                                    System.out.println(ex);
+                                    assertTrue(ex instanceof LockTimeoutException);
                                 }
                             }
                             return null;
@@ -148,7 +150,7 @@ public class Locking extends Versioning {
                 }
             }
 
-            /* 
+            /*
                Our locks will be released after commit, when the transaction completes.
              */
             tx.commit();

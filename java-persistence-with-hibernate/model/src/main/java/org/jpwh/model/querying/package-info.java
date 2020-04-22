@@ -1,3 +1,4 @@
+// p. 75
 @org.hibernate.annotations.NamedQueries({
     @org.hibernate.annotations.NamedQuery(
         name = "findItemsOrderByName",

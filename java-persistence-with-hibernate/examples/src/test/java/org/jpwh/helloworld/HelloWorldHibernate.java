@@ -29,14 +29,14 @@ public class HelloWorldHibernate extends TransactionManagerTest {
 
     protected SessionFactory createSessionFactory() {
 
-        /* 
+        /*
             This builder helps you create the immutable service registry with
             chained method calls.
          */
         StandardServiceRegistryBuilder serviceRegistryBuilder =
             new StandardServiceRegistryBuilder();
 
-        /* 
+        /*
             Configure the services registry by applying settings.
          */
         serviceRegistryBuilder
@@ -53,12 +53,12 @@ public class HelloWorldHibernate extends TransactionManagerTest {
         );
         ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
 
-        /* 
+        /*
             You can only enter this configuration stage with an existing service registry.
          */
         MetadataSources metadataSources = new MetadataSources(serviceRegistry);
 
-        /* 
+        /*
             Add your persistent classes to the (mapping) metadata sources.
          */
         metadataSources.addAnnotatedClass(
@@ -87,14 +87,14 @@ public class HelloWorldHibernate extends TransactionManagerTest {
         SessionFactory sessionFactory = createSessionFactory();
         try {
             {
-                /* 
+                /*
                     Get access to the standard transaction API <code>UserTransaction</code> and
                     begin a transaction on this thread of execution.
                  */
                 UserTransaction tx = TM.getUserTransaction();
                 tx.begin();
 
-                /* 
+                /*
                     Whenever you call <code>getCurrentSession()</code> in the same thread you get
                     the same <code>org.hibernate.Session</code>. It's bound automatically to the
                     ongoing transaction and is closed for you automatically when that transaction
@@ -105,13 +105,13 @@ public class HelloWorldHibernate extends TransactionManagerTest {
                 Message message = new Message();
                 message.setText("Hello World!");
 
-                /* 
+                /*
                     The native Hibernate API is very similar to the standard Java Persistence API and most methods
                     have the same name.
                  */
                 session.persist(message);
 
-                /* 
+                /*
                     Hibernate synchronizes the session with the database and closes the "current"
                     session on commit of the bound transaction automatically.
                  */
@@ -123,7 +123,7 @@ public class HelloWorldHibernate extends TransactionManagerTest {
                 UserTransaction tx = TM.getUserTransaction();
                 tx.begin();
 
-                /* 
+                /*
                     A Hibernate criteria query is a type-safe programmatic way to express queries,
                     automatically translated into SQL.
                  */
