@@ -19,7 +19,7 @@ public class Item {
 
     protected String name;
 
-    @OneToMany(mappedBy = "item", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "item", cascade = CascadeType.PERSIST) // p. 203
     protected Set<Bid> bids = new HashSet<>();
 
     public Item() {

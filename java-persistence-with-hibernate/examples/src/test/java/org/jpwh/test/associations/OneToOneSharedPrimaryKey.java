@@ -3,7 +3,6 @@ package org.jpwh.test.associations;
 import org.jpwh.env.JPATest;
 import org.jpwh.model.associations.onetoone.sharedprimarykey.Address;
 import org.jpwh.model.associations.onetoone.sharedprimarykey.User;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;

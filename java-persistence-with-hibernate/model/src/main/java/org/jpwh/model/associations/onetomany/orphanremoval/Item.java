@@ -21,7 +21,7 @@ public class Item {
 
     @OneToMany(mappedBy = "item",
                cascade = CascadeType.PERSIST,
-               orphanRemoval = true) // Includes CascadeType.REMOVE
+               orphanRemoval = true) // Includes CascadeType.REMOVE p.206
     protected Set<Bid> bids = new HashSet<>();
 
     public Item() {

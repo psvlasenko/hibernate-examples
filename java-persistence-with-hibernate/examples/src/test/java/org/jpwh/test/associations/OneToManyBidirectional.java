@@ -28,14 +28,14 @@ public class OneToManyBidirectional extends JPATest {
             tx.begin();
             EntityManager em = JPA.createEntityManager();
 
-            Item someItem = new Item("Some Item");
+            var someItem = new Item("Some Item");
             em.persist(someItem);
 
-            Bid someBid = new Bid(new BigDecimal("123.00"), someItem);
+            var someBid = new Bid(new BigDecimal("123.00"), someItem);
             someItem.getBids().add(someBid); // Don't forget!
             em.persist(someBid);
 
-            Bid secondBid = new Bid(new BigDecimal("456.00"), someItem);
+            var secondBid = new Bid(new BigDecimal("456.00"), someItem);
             someItem.getBids().add(secondBid);
             em.persist(secondBid);
 
@@ -57,10 +57,10 @@ public class OneToManyBidirectional extends JPATest {
             tx.begin();
             em = JPA.createEntityManager();
 
-            Collection<Bid> bids =
-                    em.createQuery("select b from Bid b where b.item.id = :itemId")
-                    .setParameter("itemId", ITEM_ID)
-                    .getResultList();
+            Collection<Bid> bids = em.createQuery("select b from Bid b where b.item.id = :itemId")
+                .setParameter("itemId", ITEM_ID)
+                .getResultList();
+
             assertEquals(bids.size(), 2);
 
             tx.commit();

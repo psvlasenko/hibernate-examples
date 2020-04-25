@@ -17,7 +17,7 @@ public class Item {
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.PERSIST)
     // Hibernate quirk: Schema options usually on the 'mappedBy' side
-    @org.hibernate.annotations.OnDelete(
+    @org.hibernate.annotations.OnDelete( // p.208
         action = org.hibernate.annotations.OnDeleteAction.CASCADE
     )
     protected Set<Bid> bids = new HashSet<>();

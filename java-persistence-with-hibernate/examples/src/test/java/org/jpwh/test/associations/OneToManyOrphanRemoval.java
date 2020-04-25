@@ -5,7 +5,6 @@ import org.jpwh.env.JPATest;
 import org.jpwh.model.associations.onetomany.orphanremoval.Bid;
 import org.jpwh.model.associations.onetomany.orphanremoval.Item;
 import org.jpwh.model.associations.onetomany.orphanremoval.User;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
@@ -21,6 +20,7 @@ public class OneToManyOrphanRemoval extends JPATest {
         configurePersistenceUnit("OneToManyOrphanRemovalPU");
     }
 
+    // p.206
     @Test
     public void storeAndLoadItemBids() throws Exception {
         UserTransaction tx = TM.getUserTransaction();
@@ -51,11 +51,11 @@ public class OneToManyOrphanRemoval extends JPATest {
             em = JPA.createEntityManager();
 
             User user = em.find(User.class, USER_ID);
-            assertEquals(user.getBids().size(), 2); // User made two bids...
+            assertEquals(user.getBids().size(), 2); // User made two bids... p. 207
 
             Item item = em.find(Item.class, ITEM_ID);
             Bid firstBid = item.getBids().iterator().next();
-            item.getBids().remove(firstBid); // One bid is removed
+            item.getBids().remove(firstBid); // One bid is removed p.206
 
             // FAILURE!
             // assertEquals(user.getBids().size(), 1);

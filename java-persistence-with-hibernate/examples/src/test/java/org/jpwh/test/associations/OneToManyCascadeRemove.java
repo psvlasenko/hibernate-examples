@@ -4,7 +4,6 @@ package org.jpwh.test.associations;
 import org.jpwh.env.JPATest;
 import org.jpwh.model.associations.onetomany.cascaderemove.Bid;
 import org.jpwh.model.associations.onetomany.cascaderemove.Item;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
@@ -21,6 +20,7 @@ public class OneToManyCascadeRemove extends JPATest {
         configurePersistenceUnit("OneToManyCascadeRemovePU");
     }
 
+    // p.205
     @Test
     public void storeAndLoadItemBids() throws Exception {
         UserTransaction tx = TM.getUserTransaction();
@@ -28,13 +28,13 @@ public class OneToManyCascadeRemove extends JPATest {
             tx.begin();
             EntityManager em = JPA.createEntityManager();
 
-            Item someItem = new Item("Some Item");
+            var someItem = new Item("Some Item");
             em.persist(someItem); // Saves the bids automatically (later, at flush time)
 
-            Bid someBid = new Bid(new BigDecimal("123.00"), someItem);
+            var someBid = new Bid(new BigDecimal("123.00"), someItem);
             someItem.getBids().add(someBid);
 
-            Bid secondBid = new Bid(new BigDecimal("456.00"), someItem);
+            var secondBid = new Bid(new BigDecimal("456.00"), someItem);
             someItem.getBids().add(secondBid);
 
             tx.commit(); // Dirty checking, SQL execution
@@ -55,7 +55,7 @@ public class OneToManyCascadeRemove extends JPATest {
             em = JPA.createEntityManager();
 
             Item item = em.find(Item.class, ITEM_ID);
-            em.remove(item); // Deletes the bids one by one after loading them!
+            em.remove(item); // Deletes the bids one by one after loading them! p.205
 
             tx.commit();
             em.close();

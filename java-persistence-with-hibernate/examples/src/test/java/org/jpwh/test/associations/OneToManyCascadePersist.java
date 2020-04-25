@@ -20,6 +20,7 @@ public class OneToManyCascadePersist extends JPATest {
         configurePersistenceUnit("OneToManyCascadePersistPU");
     }
 
+    // p.204
     @Test
     public void storeAndLoadItemBids() throws Exception {
         UserTransaction tx = TM.getUserTransaction();
@@ -27,13 +28,13 @@ public class OneToManyCascadePersist extends JPATest {
             tx.begin();
             EntityManager em = JPA.createEntityManager();
 
-            Item someItem = new Item("Some Item");
-            em.persist(someItem); // Saves the bids automatically (later, at flush time)
+            var someItem = new Item("Some Item");
+            em.persist(someItem); // Saves the bids automatically (later, at flush time) p.204
 
-            Bid someBid = new Bid(new BigDecimal("123.00"), someItem);
+            var someBid = new Bid(new BigDecimal("123.00"), someItem);
             someItem.getBids().add(someBid);
 
-            Bid secondBid = new Bid(new BigDecimal("456.00"), someItem);
+            var secondBid = new Bid(new BigDecimal("456.00"), someItem);
             someItem.getBids().add(secondBid);
 
             tx.commit(); // Dirty checking, SQL execution
@@ -45,7 +46,7 @@ public class OneToManyCascadePersist extends JPATest {
             tx.begin();
             em = JPA.createEntityManager();
 
-            Item item = em.find(Item.class, ITEM_ID);
+            var item = em.find(Item.class, ITEM_ID);
             assertEquals(item.getBids().size(), 2);
 
             for (Bid bid : item.getBids()) {
