@@ -2,6 +2,7 @@ package org.jpwh.model.complexschemas.compositekey.mapsid;
 
 import javax.persistence.*;
 
+// p. 263
 @Entity
 @Table(name = "USERS")
 public class User {
@@ -10,7 +11,7 @@ public class User {
     protected UserId id;
 
     @ManyToOne
-    @MapsId("departmentId")
+    @MapsId("departmentId") // p. 263
     protected Department department;
 
     public User(UserId id) {

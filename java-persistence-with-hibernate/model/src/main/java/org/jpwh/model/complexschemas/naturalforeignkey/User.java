@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+// p. 267
 // TODO User class must be serializable, Hibernate bug HHH-7668
 @Entity
 @Table(name = "USERS")

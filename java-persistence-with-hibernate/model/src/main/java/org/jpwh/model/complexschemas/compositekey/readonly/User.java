@@ -2,6 +2,7 @@ package org.jpwh.model.complexschemas.compositekey.readonly;
 
 import javax.persistence.*;
 
+// p. 264
 @Entity
 @Table(name = "USERS")
 public class User {

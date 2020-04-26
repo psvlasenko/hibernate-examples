@@ -3,6 +3,7 @@ package org.jpwh.model.complexschemas.compositekey.mapsid;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
+// p. 263
 @Embeddable
 public class UserId implements Serializable {
 
@@ -42,7 +43,6 @@ public class UserId implements Serializable {
     public Long getDepartmentId() {
         return departmentId;
     }
-
 
     // ...
 }

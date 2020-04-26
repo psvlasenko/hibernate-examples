@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @DiscriminatorValue("CC")
-@SecondaryTable( // JPWH - p. 164
+@SecondaryTable( // p. 164
     name = "CREDITCARD",
     pkJoinColumns = @PrimaryKeyJoinColumn(name = "CREDITCARD_ID")
 )

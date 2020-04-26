@@ -4,9 +4,10 @@ import org.jpwh.model.Constants;
 
 import javax.persistence.*;
 
+// p. 269
 @Entity
 @Table(name = "USERS")
-@SecondaryTable(
+@SecondaryTable( // p.269
     name = "BILLING_ADDRESS",
     pkJoinColumns = @PrimaryKeyJoinColumn(name = "USER_ID")
 )

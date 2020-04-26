@@ -5,6 +5,7 @@ import org.jpwh.model.Constants;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+// p. 266
 @Entity
 public class Item {
 
@@ -17,7 +18,7 @@ public class Item {
 
     @NotNull
     @ManyToOne
-    @JoinColumns({
+    @JoinColumns({ // p. 266
         @JoinColumn(name = "SELLER_USERNAME",
                     referencedColumnName = "USERNAME"),
         @JoinColumn(name = "SELLER_DEPARTMENTNR",

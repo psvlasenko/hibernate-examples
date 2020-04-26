@@ -4,7 +4,6 @@ import org.jpwh.env.JPATest;
 import org.jpwh.model.complexschemas.compositekey.manytoone.Item;
 import org.jpwh.model.complexschemas.compositekey.manytoone.User;
 import org.jpwh.model.complexschemas.compositekey.manytoone.UserId;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
@@ -27,11 +26,11 @@ public class CompositeKeyManyToOne extends JPATest {
             EntityManager em = JPA.createEntityManager();
 
             {
-                UserId id = new UserId("johndoe", "123");
-                User user = new User(id);
+                var id = new UserId("johndoe", "123");
+                var user = new User(id);
                 em.persist(user);
 
-                Item item = new Item("Some Item");
+                var item = new Item("Some Item");
                 item.setSeller(user);
                 em.persist(item);
             }
@@ -43,11 +42,11 @@ public class CompositeKeyManyToOne extends JPATest {
             em = JPA.createEntityManager();
 
             {
-                UserId id = new UserId("johndoe", "123");
-                User user = em.find(User.class, id);
+                var id = new UserId("johndoe", "123");
+                var user = em.find(User.class, id);
                 assertEquals(user.getId().getDepartmentNr(), "123");
 
-                Item item = (Item)em.createQuery(
+                var item = (Item)em.createQuery(
                     "select i from Item i where i.seller = :u"
                 ).setParameter("u", user).getSingleResult();
 
