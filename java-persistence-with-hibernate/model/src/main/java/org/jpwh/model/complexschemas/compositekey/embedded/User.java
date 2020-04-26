@@ -4,6 +4,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+// p. 261
 @Entity
 @Table(name = "USERS")
 public class User {

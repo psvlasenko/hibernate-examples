@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
+// p. 230
+// @AssociationOverride p. 231
 @Embeddable
 public class Address {
 
@@ -74,4 +76,5 @@ public class Address {
     public void setDeliveries(Set<Shipment> deliveries) {
         this.deliveries = deliveries;
     }
+
 }

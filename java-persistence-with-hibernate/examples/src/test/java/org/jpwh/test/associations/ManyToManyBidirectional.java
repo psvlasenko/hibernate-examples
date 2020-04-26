@@ -4,7 +4,6 @@ package org.jpwh.test.associations;
 import org.jpwh.env.JPATest;
 import org.jpwh.model.associations.manytomany.bidirectional.Category;
 import org.jpwh.model.associations.manytomany.bidirectional.Item;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
@@ -12,6 +11,7 @@ import javax.transaction.UserTransaction;
 
 import static org.testng.Assert.assertEquals;
 
+// p.233
 public class ManyToManyBidirectional extends JPATest {
 
     @Override

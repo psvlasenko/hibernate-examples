@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+// p. 240
 @Entity
 public class Category {
 
@@ -15,8 +16,8 @@ public class Category {
 
     protected String name;
 
-    @ElementCollection
-    @CollectionTable(
+    @ElementCollection // p. 240
+    @CollectionTable( // p. 240
         name = "CATEGORY_ITEM",
         joinColumns = @JoinColumn(name = "CATEGORY_ID")
     )

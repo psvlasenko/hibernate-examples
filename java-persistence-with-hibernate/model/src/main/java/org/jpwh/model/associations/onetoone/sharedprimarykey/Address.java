@@ -23,7 +23,6 @@ public class Address {
     @NotNull
     protected String city;
 
-
     protected Address() {
     }
 

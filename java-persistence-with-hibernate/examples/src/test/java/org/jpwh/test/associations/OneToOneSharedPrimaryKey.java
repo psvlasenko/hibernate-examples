@@ -17,6 +17,7 @@ public class OneToOneSharedPrimaryKey extends JPATest {
         configurePersistenceUnit("OneToOneSharedPrimaryKeyPU");
     }
 
+    // p. 213
     @Test
     public void storeAndLoadUserAddress() throws Exception {
         UserTransaction tx = TM.getUserTransaction();
@@ -31,7 +32,7 @@ public class OneToOneSharedPrimaryKey extends JPATest {
 
             User someUser =
                 new User(
-                    someAddress.getId(), // Assign same identifier value
+                    someAddress.getId(), // Assign same identifier value p. 213
                     "johndoe"
                 );
 

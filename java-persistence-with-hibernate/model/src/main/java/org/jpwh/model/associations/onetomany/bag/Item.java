@@ -9,6 +9,8 @@ import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.Collection;
 
+
+// p. 223
 @Entity
 public class Item {
 

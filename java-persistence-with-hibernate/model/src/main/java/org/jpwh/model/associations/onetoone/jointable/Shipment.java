@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+// p. 221
 @Entity
 public class Shipment {
 
@@ -20,14 +21,14 @@ public class Shipment {
     protected ShipmentState shipmentState = ShipmentState.TRANSIT;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinTable(
+    @JoinTable( // p. 221
         name = "ITEM_SHIPMENT", // Required!
-        joinColumns =
-            @JoinColumn(name = "SHIPMENT_ID"),  // Defaults to ID
-        inverseJoinColumns =
-            @JoinColumn(name = "ITEM_ID",  // Defaults to AUCTION_ID
-                        nullable = false,
-                        unique = true)
+        joinColumns = @JoinColumn(name = "SHIPMENT_ID"),  // Defaults to ID
+        inverseJoinColumns = @JoinColumn(
+            name = "ITEM_ID",  // Defaults to AUCTION_ID
+            nullable = false,
+            unique = true
+        )
     )
     protected Item auction;
 

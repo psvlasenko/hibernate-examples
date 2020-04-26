@@ -1,3 +1,4 @@
+<!-- p. 249 -->
 <persistence
         version="2.1"
         xmlns="http://xmlns.jcp.org/xml/ns/persistence"
@@ -5,38 +6,38 @@
         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
                             http://xmlns.jcp.org/xml/ns/persistence_2_1.xsd">
 
-    <!-- 
+    <!--
          The <code>persistence.xml</code> file configures at least one persistence unit;
          each unit must have a unique name.
     -->
     <persistence-unit name="HelloWorldPU">
 
-        <!-- 
+        <!--
              Each persistence unit must have a database connection. Here you delegate to
              an existing <code>java.sql.DataSource</code>. Hibernate will find the data source
              by name with a JNDI lookup on startup.
         -->
         <jta-data-source>myDS</jta-data-source>
 
-        <!-- 
+        <!--
             A persistent unit has persistent (mapped) classes, you list them here.
         -->
         <class>org.jpwh.model.helloworld.Message</class>
 
-        <!-- 
+        <!--
             Hibernate can scan your classpath for mapped classes and add them automatically
             to your persistence unit. This setting disables that feature.
         -->
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
-        <!-- 
+        <!--
             Standard or vendor-specific options can be set as properties on a persistence unit.
             Any standard properties have the <code>javax.persistence</code> name prefix, Hibernate's
             settings use <code>hibernate</code>
         -->
         <properties>
 
-            <!-- 
+            <!--
                 The JPA engine should drop and re-create the SQL schema in the database
                 automatically when it boots. This is ideal for automated testing, when
                 you want to work with a clean database for every test run.
@@ -45,7 +46,7 @@
                 name="javax.persistence.schema-generation.database.action"
                 value="drop-and-create"/>
 
-            <!-- 
+            <!--
                 When printing SQL in logs, let Hibernate format the SQL nicely and generate
                 comments into the SQL string so we know why Hibernate executed the SQL statement.
             -->
@@ -246,7 +247,7 @@
         <class>org.jpwh.model.complexschemas.custom.User</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
-            <!-- 
+            <!-- p. 249
                  By default, Hibernate expects one SQL statement per line in scripts. This
                  switches to the more convenient multi-line extractor. SQL statements in
                  scripts are then terminated with semicolon. You can write your own
@@ -256,8 +257,7 @@
             <property name="hibernate.hbm2ddl.import_files_sql_extractor"
                       value="org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor"/>
 
-            <!--
- 
+            <!-- p. 249
                 This property defines when the create and drop scripts should be executed.
                 Our custom SQL scripts will contain <code>CREATE DOMAIN</code> statements, which
                 have to be executed before the tables using these domains are created. With
@@ -274,8 +274,7 @@
             <property name="javax.persistence.schema-generation.drop-source"
                       value="metadata-then-script"/>
 
-            <!--
- 
+            <!-- p. 249
                 The location of the custom SQL script for creation of the schema. The
                 path is either (a) the location of the script resource on the classpath
                 or (b) the location of the script as a <code>file://</code> URL or
@@ -285,17 +284,11 @@
             <property name="javax.persistence.schema-generation.create-script-source"
                       value="complexschemas/CreateScript.sql.txt"/>
 
-            <!--
- 
-                The custom SQL script for dropping the schema.
-            -->
+            <!-- p. 249 The custom SQL script for dropping the schema. -->
             <property name="javax.persistence.schema-generation.drop-script-source"
                       value="complexschemas/DropScript.sql.txt"/>
 
-            <!--
- 
-                This load script runs after the tables have been created.
-            -->
+            <!-- p. 249 This load script runs after the tables have been created. -->
             <property name="javax.persistence.sql-load-script-source"
                       value="complexschemas/LoadScript.sql.txt"/>
         </properties>
@@ -878,7 +871,7 @@
         <class>org.jpwh.model.cache.Bid</class>
         <class>org.jpwh.model.cache.User</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
-        <!-- 
+        <!--
              The shared cache mode controls how entity classes of this persistence
              unit become cacheable. Usually you prefer to enable caching selectively
              for only some entity classes. Other options are
@@ -886,7 +879,7 @@
         -->
         <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
         <properties>
-            <!-- 
+            <!--
                  Hibernate's second-level cache system has to be enabled
                  explicitly, as it is not enabled by default. You can separately
                  enable the query result cache; it's disabled by default as well.
@@ -896,7 +889,7 @@
             <property name="hibernate.cache.use_query_cache"
                       value="true"/>
 
-            <!-- 
+            <!--
                  Next, you pick a provider for the second-level cache system. For EHCache,
                  add the <code>org.hibernate:hibernate-ehcache</code> Maven artifact
                  dependency to your classpath. Then, pick how Hibernate uses EHCache with this
@@ -906,7 +899,7 @@
             <property name="hibernate.cache.region.factory_class"
                       value="org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory"/>
 
-            <!-- 
+            <!--
                  Hibernate will pass this property along to EHCache when the provider
                  is started, setting the location of the EHCache configuration file. All
                  physical cache settings for cache regions are in this file.
@@ -914,7 +907,7 @@
             <property name="net.sf.ehcache.configurationResourceName"
                       value="/cache/ehcache.xml"/>
 
-            <!-- 
+            <!--
                  This setting controls how Hibernate disassembles and assembles
                  entity state when data is stored and loaded from the second-level
                  cache. The "structured" cache entry format is less efficient but
@@ -925,7 +918,7 @@
             <property name="hibernate.cache.use_structured_entries"
                       value="false"/>
 
-            <!-- 
+            <!--
                  While you experiment with the second-level cache, you usually
                  want to see and examine what's happening behind the scenes. Hibernate
                  has a statistics collector and an API to access these statistics. For

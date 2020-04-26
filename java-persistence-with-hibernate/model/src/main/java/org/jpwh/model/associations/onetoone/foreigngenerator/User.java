@@ -4,6 +4,7 @@ import org.jpwh.model.Constants;
 
 import javax.persistence.*;
 
+// p. 215
 @Entity
 @Table(name = "USERS")
 public class User {
@@ -17,7 +18,7 @@ public class User {
 
     @OneToOne(
         mappedBy = "user",
-        cascade = CascadeType.PERSIST
+        cascade = CascadeType.PERSIST // p. 215
     )
     protected Address shippingAddress;
 

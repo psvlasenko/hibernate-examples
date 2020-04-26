@@ -3,12 +3,13 @@ package org.jpwh.model.associations.onetoone.foreigngenerator;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+// p. 216
 @Entity
 public class Address {
 
     @Id
     @GeneratedValue(generator = "addressKeyGenerator")
-    @org.hibernate.annotations.GenericGenerator(
+    @org.hibernate.annotations.GenericGenerator( // p. 216
         name = "addressKeyGenerator",
         strategy = "foreign",
         parameters =
@@ -29,7 +30,7 @@ public class Address {
     protected String city;
 
     @OneToOne(optional = false) // Create FK constraint on PK column
-    @PrimaryKeyJoinColumn
+    @PrimaryKeyJoinColumn // p. 216
     protected User user;
 
 

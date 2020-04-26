@@ -2,7 +2,6 @@ package org.jpwh.model.complexschemas.custom;
 
 import org.jpwh.model.Constants;
 
-import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -13,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 
+// p. 257
 @Entity
 public class Bid {
 
@@ -24,7 +24,7 @@ public class Bid {
     @JoinColumn(
         name = "ITEM_ID",
         nullable = false,
-        foreignKey = @ForeignKey(name = "FK_ITEM_ID")
+        foreignKey = @ForeignKey(name = "FK_ITEM_ID") // p. 258
     )
     protected Item item;
 

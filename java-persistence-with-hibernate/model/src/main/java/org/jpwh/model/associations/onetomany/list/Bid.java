@@ -13,10 +13,11 @@ public class Bid {
     @GeneratedValue(generator = Constants.ID_GENERATOR)
     protected Long id;
 
-    @ManyToOne
+    @ManyToOne // p. 225
     @JoinColumn(
         name = "ITEM_ID",
-        updatable = false, insertable = false // Disable writing!
+        updatable = false,
+        insertable = false // Disable writing!
     )
     @NotNull // For schema generation
     protected Item item;

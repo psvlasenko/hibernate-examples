@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
+// p. 228
 @Entity
 @Table(name = "USERS")
 public class User {

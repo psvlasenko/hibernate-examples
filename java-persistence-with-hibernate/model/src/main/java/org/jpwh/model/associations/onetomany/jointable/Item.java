@@ -5,6 +5,7 @@ import org.jpwh.model.Constants;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+// p. 228
 @Entity
 public class Item {
 

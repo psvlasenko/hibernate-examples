@@ -9,6 +9,7 @@ import javax.persistence.ManyToMany;
 import java.util.HashSet;
 import java.util.Set;
 
+// p. 233
 @Entity
 public class Item {
 

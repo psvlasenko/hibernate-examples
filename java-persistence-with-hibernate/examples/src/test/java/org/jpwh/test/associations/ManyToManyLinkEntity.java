@@ -5,7 +5,6 @@ import org.jpwh.env.JPATest;
 import org.jpwh.model.associations.manytomany.linkentity.CategorizedItem;
 import org.jpwh.model.associations.manytomany.linkentity.Category;
 import org.jpwh.model.associations.manytomany.linkentity.Item;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
@@ -13,6 +12,7 @@ import javax.transaction.UserTransaction;
 
 import static org.testng.Assert.assertEquals;
 
+// p. 238
 public class ManyToManyLinkEntity extends JPATest {
 
     @Override

@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.HashMap;
 import java.util.Map;
 
+// p. 244
 @Entity
 public class Category {
 
@@ -16,7 +17,7 @@ public class Category {
     protected String name;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
-    @MapKeyJoinColumn(name = "ITEM_ID") // Defaults to ITEMADDEDBY_KEY
+    @MapKeyJoinColumn(name = "ITEM_ID") // Defaults to ITEMADDEDBY_KEY p. 244
     @JoinTable(
         name = "CATEGORY_ITEM",
         joinColumns = @JoinColumn(name = "CATEGORY_ID"),

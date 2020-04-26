@@ -4,6 +4,7 @@ import org.jpwh.model.Constants;
 
 import javax.persistence.*;
 
+// p. 219
 @Entity
 @Table(name = "USERS")
 public class User {

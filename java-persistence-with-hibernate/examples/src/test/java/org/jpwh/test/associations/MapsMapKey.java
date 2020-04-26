@@ -4,7 +4,6 @@ package org.jpwh.test.associations;
 import org.jpwh.env.JPATest;
 import org.jpwh.model.associations.maps.mapkey.Bid;
 import org.jpwh.model.associations.maps.mapkey.Item;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
@@ -14,6 +13,7 @@ import java.util.Map;
 
 import static org.testng.Assert.assertEquals;
 
+// p.242
 public class MapsMapKey extends JPATest {
 
     @Override
@@ -28,14 +28,14 @@ public class MapsMapKey extends JPATest {
             tx.begin();
             EntityManager em = JPA.createEntityManager();
 
-            Item someItem = new Item("Some Item");
+            var someItem = new Item("Some Item");
             em.persist(someItem);
 
-            Bid someBid = new Bid(new BigDecimal("123.00"), someItem);
+            var someBid = new Bid(new BigDecimal("123.00"), someItem);
             em.persist(someBid);
             someItem.getBids().put(someBid.getId(), someBid); // Optional...
 
-            Bid secondBid = new Bid(new BigDecimal("456.00"), someItem);
+            var secondBid = new Bid(new BigDecimal("456.00"), someItem);
             em.persist(secondBid);
             someItem.getBids().put(secondBid.getId(), secondBid); // Optional...
 

@@ -3,12 +3,12 @@ package org.jpwh.model.associations.onetomany.embeddable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
+// p. 229
 @Embeddable
 public class Address {
 
@@ -71,4 +71,5 @@ public class Address {
     public void setDeliveries(Set<Shipment> deliveries) {
         this.deliveries = deliveries;
     }
+
 }

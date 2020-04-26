@@ -10,17 +10,18 @@ import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+// p. 254
 @Entity
-@Table(
+@Table( // p. 256
     name = "USERS",
     uniqueConstraints =
-        @UniqueConstraint(
+        @UniqueConstraint(  // p. 256
             name = "UNQ_USERNAME_EMAIL",
             columnNames = { "USERNAME", "EMAIL" }
         )
     ,
     indexes = {
-        @Index(
+        @Index( // p. 258
             name = "IDX_USERNAME",
             columnList = "USERNAME"
         ),

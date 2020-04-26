@@ -12,6 +12,7 @@ import javax.transaction.UserTransaction;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNull;
 
+// p. 222
 public class OneToOneJoinTable extends JPATest {
 
     @Override

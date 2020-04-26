@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+// p. 239
 @Embeddable
 public class CategorizedItem {
 

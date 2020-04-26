@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
+// p. 243
 @Entity
 public class Item {
 
@@ -17,7 +18,7 @@ public class Item {
     @NotNull
     protected String name;
 
-    @MapKey(name = "id")
+    @MapKey(name = "id") // p. 243 name not necessary
     @OneToMany(mappedBy = "item")
     protected Map<Long, Bid> bids = new HashMap<>();
 

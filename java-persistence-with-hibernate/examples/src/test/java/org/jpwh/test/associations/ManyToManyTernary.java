@@ -6,7 +6,6 @@ import org.jpwh.model.associations.manytomany.ternary.CategorizedItem;
 import org.jpwh.model.associations.manytomany.ternary.Category;
 import org.jpwh.model.associations.manytomany.ternary.Item;
 import org.jpwh.model.associations.manytomany.ternary.User;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
@@ -16,6 +15,7 @@ import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 
+// p. 240
 public class ManyToManyTernary extends JPATest {
 
     @Override
@@ -30,32 +30,26 @@ public class ManyToManyTernary extends JPATest {
             tx.begin();
             EntityManager em = JPA.createEntityManager();
 
-            Category someCategory = new Category("Some Category");
-            Category otherCategory = new Category("Other Category");
+            var someCategory = new Category("Some Category");
+            var otherCategory = new Category("Other Category");
             em.persist(someCategory);
             em.persist(otherCategory);
 
-            Item someItem = new Item("Some Item");
-            Item otherItem = new Item("Other Item");
+            var someItem = new Item("Some Item");
+            var otherItem = new Item("Other Item");
             em.persist(someItem);
             em.persist(otherItem);
 
             User someUser = new User("johndoe");
             em.persist(someUser);
 
-            CategorizedItem linkOne = new CategorizedItem(
-                someUser, someItem
-            );
+            var linkOne = new CategorizedItem(someUser, someItem);
             someCategory.getCategorizedItems().add(linkOne);
 
-            CategorizedItem linkTwo = new CategorizedItem(
-                someUser, otherItem
-            );
+            var linkTwo = new CategorizedItem(someUser, otherItem);
             someCategory.getCategorizedItems().add(linkTwo);
 
-            CategorizedItem linkThree = new CategorizedItem(
-                someUser, someItem
-            );
+            var linkThree = new CategorizedItem(someUser, someItem);
             otherCategory.getCategorizedItems().add(linkThree);
 
             tx.commit();
@@ -91,13 +85,11 @@ public class ManyToManyTernary extends JPATest {
 
             Item item = em.find(Item.class, ITEM_ID);
 
-            List<Category> categoriesOfItem =
-                em.createQuery(
-                    "select c from Category c " +
-                        "join c.categorizedItems ci " +
-                        "where ci.item = :itemParameter")
-                .setParameter("itemParameter", item)
-                .getResultList();
+            List<Category> categoriesOfItem = em.createQuery(
+                "select c from Category c join c.categorizedItems ci where ci.item = :itemParameter"
+            )
+            .setParameter("itemParameter", item)
+            .getResultList();
 
             assertEquals(categoriesOfItem.size(), 2);
 

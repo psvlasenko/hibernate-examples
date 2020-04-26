@@ -2,6 +2,7 @@ package org.jpwh.model.associations.onetoone.sharedprimarykey;
 
 import javax.persistence.*;
 
+// p. 213
 @Entity
 @Table(name = "USERS")
 public class User {
@@ -9,21 +10,19 @@ public class User {
     @Id
     protected Long id;
 
-
     protected String username;
 
-    @OneToOne(
-        fetch = FetchType.LAZY,  // Defaults to EAGER
-        optional = false // Required for lazy loading with proxies!
+    @OneToOne( // p. 213
+        fetch = FetchType.LAZY,  // Defaults to EAGER p. 213
+        optional = false // Required for lazy loading with proxies! p. 213
     )
-    @PrimaryKeyJoinColumn
+    @PrimaryKeyJoinColumn // p. 213
     protected Address shippingAddress;
-
 
     protected User() {
     }
 
-    public User(Long id, String username) {
+    public User(Long id, String username) { // p. 213
         this.id = id;
         this.username = username;
     }

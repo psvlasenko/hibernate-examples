@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+// p. 224
 @Entity
 public class Item {
 
@@ -22,7 +23,7 @@ public class Item {
         name = "ITEM_ID",
         nullable = false
     )
-    @OrderColumn(
+    @OrderColumn(  // p. 225
         name = "BID_POSITION", // Defaults to BIDS_ORDER
         nullable = false
     )

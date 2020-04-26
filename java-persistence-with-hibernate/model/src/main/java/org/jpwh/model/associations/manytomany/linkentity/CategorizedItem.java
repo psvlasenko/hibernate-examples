@@ -5,9 +5,10 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
+// p. 235
 @Entity
 @Table(name = "CATEGORY_ITEM")
-@org.hibernate.annotations.Immutable
+@org.hibernate.annotations.Immutable // p. 235
 public class CategorizedItem {
 
     @Embeddable
@@ -41,7 +42,7 @@ public class CategorizedItem {
         }
     }
 
-    @EmbeddedId
+    @EmbeddedId  // p. 236
     protected Id id = new Id();
 
     @Column(updatable = false)
@@ -55,13 +56,17 @@ public class CategorizedItem {
     @ManyToOne
     @JoinColumn(
         name = "CATEGORY_ID",
-        insertable = false, updatable = false)
+        insertable = false,
+        updatable = false
+    )
     protected Category category;
 
     @ManyToOne
     @JoinColumn(
         name = "ITEM_ID",
-        insertable = false, updatable = false)
+        insertable = false,
+        updatable = false
+    )
     protected Item item;
 
 
