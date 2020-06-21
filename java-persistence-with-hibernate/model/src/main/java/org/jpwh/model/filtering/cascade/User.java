@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
+@Entity // p.370
 @Table(name = "USERS")
 public class User {
 

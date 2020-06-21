@@ -27,7 +27,7 @@ public class LazyInterception extends JPATest {
         tx.begin();
         EntityManager em = JPA.createEntityManager();
 
-        Long[] itemIds = new Long[3];
+        Long[]  itemIds = new Long[3];
         Long[] userIds = new Long[3];
 
         User johndoe = new User("johndoe");
@@ -75,7 +75,7 @@ public class LazyInterception extends JPATest {
             Long ITEM_ID = testData.items.getFirstId();
             Long USER_ID = testData.users.getFirstId();
 
-            {
+            { // p.342
                 // Proxies are disabled, getReference() will return an initialized instance
                 User user = em.getReference(User.class, USER_ID);
                 // select * from USERS where ID = ?
@@ -114,7 +114,7 @@ public class LazyInterception extends JPATest {
             Item item = em.find(Item.class, ITEM_ID);
             // select NAME, AUCTIONEND, ... from ITEM where ID = ?
 
-             // Accessing one loads _all_ lazy properties (description, seller, ...)
+            // p. 344 Accessing one loads _all_ lazy properties (description, seller, ...)
             assertTrue(item.getDescription().length() > 0);
             // select DESCRIPTION from ITEM where ID = ?
             // select * from USERS where ID = ?
@@ -125,6 +125,5 @@ public class LazyInterception extends JPATest {
             TM.rollback();
         }
     }
-
 
 }

@@ -3,20 +3,11 @@ package org.jpwh.test.filtering;
 import org.hibernate.ReplicationMode;
 import org.hibernate.Session;
 import org.hibernate.jdbc.Work;
-import org.jpwh.env.DatabaseProduct;
 import org.jpwh.env.JPATest;
-import org.jpwh.model.filtering.cascade.BankAccount;
-import org.jpwh.model.filtering.cascade.Bid;
-import org.jpwh.model.filtering.cascade.BillingDetails;
-import org.jpwh.model.filtering.cascade.CreditCard;
-import org.jpwh.model.filtering.cascade.Item;
-import org.jpwh.model.filtering.cascade.User;
+import org.jpwh.model.filtering.cascade.*;
 import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
-import javax.persistence.LockTimeoutException;
-import javax.persistence.PersistenceException;
-import javax.persistence.PessimisticLockException;
 import javax.transaction.UserTransaction;
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -25,8 +16,8 @@ import java.sql.SQLException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 
-import static org.testng.Assert.*;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
 
 public class Cascade extends JPATest {
 
@@ -64,7 +55,7 @@ public class Cascade extends JPATest {
             em.clear();
 
             Item item = em.find(Item.class, ITEM_ID);
-            assertEquals(item.getBids().size(), 2); // Initializes bids
+            assertEquals(item.getBids().size(), 2); // Initializes bids p.368
             em.detach(item);
 
             em.clear();
@@ -74,7 +65,8 @@ public class Cascade extends JPATest {
             Bid bid = new Bid(new BigDecimal("101.00"), item);
             item.getBids().add(bid);
 
-            /* 
+            /*
+               p.368
                Hibernate merges the detached <code>item</code>: First, it checks if the
                persistence context already contains an <code>Item</code> with the given
                identifier value. In this case, there isn't any, so the <code>Item</code>
@@ -157,7 +149,8 @@ public class Cascade extends JPATest {
             tx.begin();
             em = JPA.createEntityManager();
 
-            /* 
+            /*
+               p.371
                An instance of <code>User</code> is loaded from the database.
              */
             User user = em.find(User.class, USER_ID);
@@ -290,7 +283,7 @@ public class Cascade extends JPATest {
             em.close();
 
             tx.begin();
-            EntityManager otherDatabase = // ... get EntityManager
+            EntityManager otherDatabase = // ... get EntityManager p.372
                 JPA.createEntityManager();
 
             otherDatabase.unwrap(Session.class)

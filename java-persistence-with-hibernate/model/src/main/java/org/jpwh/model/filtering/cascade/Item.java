@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+// p.368
 public class Item {
 
     @Id
@@ -24,11 +25,11 @@ public class Item {
 
     @OneToMany(
         mappedBy = "item",
-        cascade = {CascadeType.DETACH, CascadeType.MERGE}
+        cascade = {CascadeType.DETACH, CascadeType.MERGE} // p.368
     )
     protected Set<Bid> bids = new HashSet<Bid>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY) // p.372
     @JoinColumn(name = "SELLER_ID", nullable = false)
     @org.hibernate.annotations.Cascade(
         org.hibernate.annotations.CascadeType.REPLICATE
@@ -70,7 +71,6 @@ public class Item {
     public void setSeller(User seller) {
         this.seller = seller;
     }
-
 
     // ...
 }

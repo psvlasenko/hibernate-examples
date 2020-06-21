@@ -20,6 +20,7 @@ import java.util.Map;
 
 import static org.testng.Assert.*;
 
+// p. 360
 public class FetchLoadGraph extends JPATest {
 
     FetchTestLoadEventListener loadEventListener;
@@ -108,7 +109,7 @@ public class FetchLoadGraph extends JPATest {
                 Map<String, Object> properties = new HashMap<>();
                 properties.put(
                     "javax.persistence.loadgraph",
-                    em.getEntityGraph(Item.class.getSimpleName()) // "Item"
+                    em.getEntityGraph(Item.class.getSimpleName()) // "Item" p. 360
                 );
 
                 Item item = em.find(Item.class, ITEM_ID, properties);
@@ -132,7 +133,7 @@ public class FetchLoadGraph extends JPATest {
                 tx.begin();
                 EntityManager em = JPA.createEntityManager();
 
-                EntityGraph<Item> itemGraph = em.createEntityGraph(Item.class);
+                EntityGraph<Item> itemGraph = em.createEntityGraph(Item.class); // p. 361
 
                 Map<String, Object> properties = new HashMap<>();
                 properties.put("javax.persistence.loadgraph", itemGraph);
@@ -165,7 +166,7 @@ public class FetchLoadGraph extends JPATest {
                 tx.begin();
                 EntityManager em = JPA.createEntityManager();
 
-                Map<String, Object> properties = new HashMap<>();
+                Map<String, Object> properties = new HashMap<>();  // p. 362
                 properties.put(
                     "javax.persistence.loadgraph",
                     em.getEntityGraph("ItemSeller")
@@ -196,7 +197,7 @@ public class FetchLoadGraph extends JPATest {
                 EntityManager em = JPA.createEntityManager();
 
                 EntityGraph<Item> itemGraph = em.createEntityGraph(Item.class);
-                itemGraph.addAttributeNodes(Item_.seller); // Static metamodel
+                itemGraph.addAttributeNodes(Item_.seller); // Static metamodel p. 362
 
                 Map<String, Object> properties = new HashMap<>();
                 properties.put("javax.persistence.loadgraph", itemGraph);
@@ -230,7 +231,7 @@ public class FetchLoadGraph extends JPATest {
 
                 List<Item> items =
                     em.createQuery("select i from Item i")
-                        .setHint("javax.persistence.loadgraph", itemGraph)
+                        .setHint("javax.persistence.loadgraph", itemGraph)  // p. 362
                         .getResultList();
                 // select i.*, u.*
                 //  from ITEM i
@@ -297,7 +298,7 @@ public class FetchLoadGraph extends JPATest {
                 bidGraph.addAttributeNodes("bidder", "item");
 
                 Map<String, Object> properties = new HashMap<>();
-                properties.put("javax.persistence.loadgraph", bidGraph);
+                properties.put("javax.persistence.loadgraph", bidGraph); // p. 363
 
                 Bid bid = em.find(Bid.class, BID_ID, properties);
 
@@ -357,7 +358,7 @@ public class FetchLoadGraph extends JPATest {
                 tx.begin();
                 EntityManager em = JPA.createEntityManager();
 
-                EntityGraph<Bid> bidGraph = em.createEntityGraph(Bid.class);
+                EntityGraph<Bid> bidGraph = em.createEntityGraph(Bid.class); // p. 363
                 bidGraph.addAttributeNodes(Bid_.bidder, Bid_.item);
                 Subgraph<Item> itemGraph = bidGraph.addSubgraph(Bid_.item);
                 itemGraph.addAttributeNodes(Item_.seller, Item_.bids);

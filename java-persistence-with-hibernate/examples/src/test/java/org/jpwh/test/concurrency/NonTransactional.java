@@ -17,6 +17,7 @@ public class NonTransactional extends JPATest {
         configurePersistenceUnit("ConcurrencyVersioningPU");
     }
 
+    // p. 328
     // TODO: Broken on MySQL https://hibernate.atlassian.net/browse/HHH-8402
     @Test(groups = {"H2", "ORACLE", "POSTGRESQL"})
     public void autoCommit() throws Exception {
@@ -25,7 +26,7 @@ public class NonTransactional extends JPATest {
         try {
             tx.begin();
             EntityManager em = JPA.createEntityManager();
-            Item someItem = new Item("Original Name");
+            var someItem = new Item("Original Name");
             em.persist(someItem);
             tx.commit();
             em.close();
@@ -98,10 +99,10 @@ public class NonTransactional extends JPATest {
             em.close();
         }
 
-        {
+        { // p. 330
             EntityManager em = JPA.createEntityManager();
 
-            Item newItem = new Item("New Item");
+            var newItem = new Item("New Item");
             /*
                You can call <code>persist()</code> to save a transient entity instance with an
                unsynchronized persistence context. Hibernate will only fetch a new identifier
@@ -136,7 +137,7 @@ public class NonTransactional extends JPATest {
             TM.rollback();
         }
 
-        {
+        { // p. 331
             EntityManager tmp = JPA.createEntityManager();
             Item detachedItem = tmp.find(Item.class, ITEM_ID);
             tmp.close();
@@ -162,7 +163,7 @@ public class NonTransactional extends JPATest {
             TM.rollback();
         }
 
-        {
+        { // p. 331
             EntityManager em = JPA.createEntityManager();
 
             Item item = em.find(Item.class, ITEM_ID);

@@ -88,6 +88,7 @@ public class Subselect extends JPATest {
             tx.begin();
             EntityManager em = JPA.createEntityManager();
 
+            // p. 354
             List<Item> items = em.createQuery("select i from Item i").getResultList();
             // select * from ITEM
 

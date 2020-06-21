@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
+ * p. 375
  * Singleton
  */
 public class Mail extends ArrayList<String> {

@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
+// p. 363
 @NamedEntityGraphs({
     @NamedEntityGraph(
         name = "BidBidderItem",

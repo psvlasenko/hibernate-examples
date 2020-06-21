@@ -1,3 +1,4 @@
+// p. 359
 @org.hibernate.annotations.FetchProfiles({
     /* 
         Each profile has a name, this is a simple string we have isolated in a constant.

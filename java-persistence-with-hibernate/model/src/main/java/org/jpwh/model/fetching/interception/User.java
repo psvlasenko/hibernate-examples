@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+// p. 342
 @Entity
 @org.hibernate.annotations.Proxy(lazy = false)
 @Table(name = "USERS")

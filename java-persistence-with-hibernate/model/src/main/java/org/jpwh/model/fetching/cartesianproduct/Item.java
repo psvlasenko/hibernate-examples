@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
+@Entity // p. 349
 public class Item {
 
     @Id
@@ -30,7 +30,7 @@ public class Item {
     protected Date auctionEnd;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER) // p. 349
     protected User seller;
 
     @OneToMany(mappedBy = "item", fetch = FetchType.EAGER)

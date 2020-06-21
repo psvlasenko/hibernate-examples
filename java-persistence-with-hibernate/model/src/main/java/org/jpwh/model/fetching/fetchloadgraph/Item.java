@@ -8,10 +8,10 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+// p. 360
 @NamedEntityGraphs({
-    @NamedEntityGraph // The default "Item" entity graph
-    ,
-    @NamedEntityGraph(
+    @NamedEntityGraph, // The default "Item" entity graph
+    @NamedEntityGraph( // p. 361
         name = "ItemSeller",
         attributeNodes = {
             @NamedAttributeNode("seller")

@@ -8,6 +8,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+// p.379
 @Entity
 public class AuditLogRecord {
 

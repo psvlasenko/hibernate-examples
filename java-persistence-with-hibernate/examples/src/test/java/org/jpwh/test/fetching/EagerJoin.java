@@ -85,7 +85,7 @@ public class EagerJoin extends JPATest {
 
             Long ITEM_ID = testData.items.getFirstId();
 
-            Item item = em.find(Item.class, ITEM_ID);
+            Item item = em.find(Item.class, ITEM_ID); // p. 346
             // select i.*, u.*, b.*
             //  from ITEM i
             //   left outer join USERS u on u.ID = i.SELLER_ID

@@ -15,7 +15,7 @@ public class Item {
     protected Long id;
 
     @Version
-    // Optional: @org.hibernate.annotations.Type(type = "dbtimestamp")
+    // p. 316 Optional: @org.hibernate.annotations.Type(type = "dbtimestamp")
     protected Date lastUpdated;
 
     @NotNull

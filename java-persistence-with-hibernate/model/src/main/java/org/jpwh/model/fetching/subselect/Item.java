@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
+@Entity // p. 354
 public class Item {
 
     @Id
@@ -32,7 +32,7 @@ public class Item {
 
     @OneToMany(mappedBy = "item")
     @org.hibernate.annotations.Fetch(
-       org.hibernate.annotations.FetchMode.SUBSELECT
+       org.hibernate.annotations.FetchMode.SUBSELECT // p. 354
     )
     protected Set<Bid> bids = new HashSet<>();
 

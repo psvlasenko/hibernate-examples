@@ -16,6 +16,7 @@ import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 
+// p.382
 public class AuditLogging extends JPATest {
 
     @Override

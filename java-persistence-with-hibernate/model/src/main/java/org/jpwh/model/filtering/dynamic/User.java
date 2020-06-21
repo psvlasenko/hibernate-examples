@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+// p.391
 @Entity
 @Table(name = "USERS")
 public class User {
@@ -19,7 +20,7 @@ public class User {
     @NotNull
     protected String username;
 
-    @NotNull
+    @NotNull // p.391
     protected int rank = 0;
 
     protected User() {

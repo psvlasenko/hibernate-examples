@@ -85,7 +85,7 @@ public class EagerSelect extends JPATest {
 
             Long ITEM_ID = testData.items.getFirstId();
 
-            Item item = em.find(Item.class, ITEM_ID);
+            Item item = em.find(Item.class, ITEM_ID); // p. 355
             // select * from ITEM where ID = ?
             // select * from USERS where ID = ?
             // select * from BID where ITEM_ID = ?

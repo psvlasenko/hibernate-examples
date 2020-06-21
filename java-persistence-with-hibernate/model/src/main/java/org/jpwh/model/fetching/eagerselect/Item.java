@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+// p. 355
 @Entity
 public class Item {
 
@@ -29,13 +30,13 @@ public class Item {
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @org.hibernate.annotations.Fetch(
-       org.hibernate.annotations.FetchMode.SELECT // Defaults to JOIN
+       org.hibernate.annotations.FetchMode.SELECT // Defaults to JOIN p. 355
     )
     protected User seller;
 
     @OneToMany(mappedBy = "item", fetch = FetchType.EAGER)
     @org.hibernate.annotations.Fetch(
-       org.hibernate.annotations.FetchMode.SELECT // Defaults to JOIN
+       org.hibernate.annotations.FetchMode.SELECT // Defaults to JOIN p. 355
     )
     protected Set<Bid> bids = new HashSet<>();
 

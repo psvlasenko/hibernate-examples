@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+// p. 353
 @Entity
 public class Item {
 
@@ -31,7 +32,7 @@ public class Item {
     protected User seller;
 
     @OneToMany(mappedBy = "item")
-    @org.hibernate.annotations.BatchSize(size = 5)
+    @org.hibernate.annotations.BatchSize(size = 5) // p. 353
     protected Set<Bid> bids = new HashSet<>();
 
     public Item() {

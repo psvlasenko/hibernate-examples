@@ -86,7 +86,7 @@ public class NPlusOneSelects extends JPATest {
         return testData;
     }
 
-    @Test
+    @Test // p. 348
     public void fetchUsers() throws Exception {
         storeTestData();
         loadEventListener.reset();
@@ -131,7 +131,7 @@ public class NPlusOneSelects extends JPATest {
             assertEquals(loadEventListener.getLoadCount(Bid.class), 0);
 
             for (Item item : items) {
-                // Each bids collection has to be loaded with an additional SELECT
+                // p. 348 Each bids collection has to be loaded with an additional SELECT
                 assertTrue(item.getBids().size() > 0);
                 // select * from BID where ITEM_ID = ?
             }

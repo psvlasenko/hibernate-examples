@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
-
+// p.385
 @Entity
 @org.hibernate.envers.Audited
 public class Item {

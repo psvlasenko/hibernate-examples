@@ -7,7 +7,6 @@ import org.jpwh.model.fetching.readonly.Item;
 import org.jpwh.model.fetching.readonly.User;
 import org.jpwh.shared.util.CalendarUtil;
 import org.jpwh.shared.util.TestData;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
@@ -32,23 +31,24 @@ public class ReadOnly extends JPATest {
         Long[] itemIds = new Long[3];
         Long[] userIds = new Long[3];
 
-        User johndoe = new User("johndoe");
+        var johndoe = new User("johndoe");
         em.persist(johndoe);
         userIds[0] = johndoe.getId();
 
-        User janeroe = new User("janeroe");
+        var janeroe = new User("janeroe");
         em.persist(janeroe);
         userIds[1] = janeroe.getId();
 
-        User robertdoe = new User("robertdoe");
+        var robertdoe = new User("robertdoe");
         em.persist(robertdoe);
         userIds[2] = robertdoe.getId();
 
-        Item item = new Item("Item One", CalendarUtil.TOMORROW.getTime(), johndoe);
+        var item = new Item("Item One", CalendarUtil.TOMORROW.getTime(), johndoe);
         em.persist(item);
         itemIds[0] = item.getId();
+
         for (int i = 1; i <= 3; i++) {
-            Bid bid = new Bid(item, robertdoe, new BigDecimal(9 + i));
+            var bid = new Bid(item, robertdoe, new BigDecimal(9 + i));
             item.getBids().add(bid);
             em.persist(bid);
         }
@@ -56,8 +56,9 @@ public class ReadOnly extends JPATest {
         item = new Item("Item Two", CalendarUtil.TOMORROW.getTime(), johndoe);
         em.persist(item);
         itemIds[1] = item.getId();
+
         for (int i = 1; i <= 1; i++) {
-            Bid bid = new Bid(item, janeroe, new BigDecimal(2 + i));
+            var bid = new Bid(item, janeroe, new BigDecimal(2 + i));
             item.getBids().add(bid);
             em.persist(bid);
         }
@@ -87,13 +88,16 @@ public class ReadOnly extends JPATest {
             Long ITEM_ID = testData.items.getFirstId();
 
             Item item = em.find(Item.class, ITEM_ID);
+
             for (Bid bid : item.getBids()) {
                 bid.setAmount(new BigDecimal("99.99")); // This has no effect
             }
+
             em.flush();
             em.clear();
 
             item = em.find(Item.class, ITEM_ID);
+
             for (Bid bid : item.getBids()) {
                 assertNotEquals(bid.getAmount().toString(), "99.99");
             }
@@ -105,6 +109,7 @@ public class ReadOnly extends JPATest {
         }
     }
 
+    // p. 287
     @Test
     public void selectiveReadOnly() throws Exception {
         FetchTestData testData = storeTestData();
@@ -122,6 +127,7 @@ public class ReadOnly extends JPATest {
                 Item item = em.find(Item.class, ITEM_ID);
                 item.setName("New Name");
 
+                // p. 287
                 em.flush(); // No UPDATE
             }
             {
@@ -144,7 +150,7 @@ public class ReadOnly extends JPATest {
                 assertNotEquals(item.getName(), "New Name");
             }
             {
-                org.hibernate.Query query = em.unwrap(Session.class)
+                org.hibernate.query.Query query = em.unwrap(Session.class)
                     .createQuery("select i from Item i");
 
                 query.setReadOnly(true).list();
@@ -158,10 +164,8 @@ public class ReadOnly extends JPATest {
             }
             {
                 List<Item> items = em.createQuery("select i from Item i")
-                    .setHint(
-                        org.hibernate.annotations.QueryHints.READ_ONLY,
-                        true
-                    ).getResultList();
+                    .setHint(org.hibernate.annotations.QueryHints.READ_ONLY, true) // p. 288
+                    .getResultList();
 
                 for (Item item : items)
                     item.setName("New Name");

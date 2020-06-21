@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 
 import static org.testng.Assert.*;
 
+// p. 359
 public class Profile extends JPATest {
 
     @Override
@@ -80,7 +81,7 @@ public class Profile extends JPATest {
         return testData;
     }
 
-    @Test
+    @Test // p. 358
     public void fetchWithProfile() throws Exception {
         FetchTestData testData = storeTestData();
 
@@ -91,7 +92,7 @@ public class Profile extends JPATest {
 
             Long ITEM_ID = testData.items.getFirstId();
 
-            /* 
+            /*
                 The <code>Item#seller</code> is mapped lazy, so the default fetch plan
                 will only retrieve the <code>Item</code> instance.
              */
@@ -100,7 +101,8 @@ public class Profile extends JPATest {
             assertFalse(Hibernate.isInitialized(item.getSeller()));
 
             em.clear();
-            /* 
+            /*
+                p. 360
                 You need the Hibernate API to enable a profile, it is then active for any operation in that
                 unit of work. Now the <code>Item#seller</code> will be fetched with a join in the same SQL
                 statement whenever an <code>Item</code> is loaded with this <code>EntityManager</code>.
@@ -112,7 +114,8 @@ public class Profile extends JPATest {
             assertNotNull(item.getSeller().getUsername());
 
             em.clear();
-            /* 
+            /*
+                p. 360
                 You can overlay another profile on the same unit of work, now the <code>Item#seller</code>
                 and the <code>Item#bids</code> collection will be fetched with a join in the same SQL
                 statement whenever an <code>Item</code> is loaded.

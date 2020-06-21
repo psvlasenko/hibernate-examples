@@ -25,6 +25,7 @@ public class Item {
     @NotNull
     protected Date auctionEnd;
 
+    // p. 343
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY) // Has no effect, no User proxy
     @org.hibernate.annotations.LazyToOne( // Requires bytecode enhancement!

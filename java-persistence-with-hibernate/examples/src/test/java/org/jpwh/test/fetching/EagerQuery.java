@@ -20,6 +20,7 @@ import java.util.List;
 
 import static org.testng.Assert.*;
 
+// p. 356
 public class EagerQuery extends JPATest {
 
     @Override
@@ -92,8 +93,8 @@ public class EagerQuery extends JPATest {
             tx.begin();
             {
                 EntityManager em = JPA.createEntityManager();
-                List<Item> items =
-                    em.createQuery("select i from Item i join fetch i.seller")
+                List<Item> items = em  // p. 357
+                        .createQuery("select i from Item i join fetch i.seller")
                         .getResultList();
                 // select i.*, u.*
                 //  from ITEM i
@@ -108,7 +109,7 @@ public class EagerQuery extends JPATest {
             }
             {
                 EntityManager em = JPA.createEntityManager();
-                CriteriaBuilder cb = em.getCriteriaBuilder();
+                CriteriaBuilder cb = em.getCriteriaBuilder(); // p. 357
                 CriteriaQuery criteria = cb.createQuery();
 
                 Root<Item> i = criteria.from(Item.class);
@@ -138,8 +139,8 @@ public class EagerQuery extends JPATest {
 
             {
                 EntityManager em = JPA.createEntityManager();
-                List<Item> items =
-                    em.createQuery("select i from Item i left join fetch i.bids")
+                List<Item> items =em // p. 356
+                        .createQuery("select i from Item i left join fetch i.bids")
                         .getResultList();
                 // select i.*, b.*
                 //  from ITEM i
@@ -154,11 +155,11 @@ public class EagerQuery extends JPATest {
             }
             {
                 EntityManager em = JPA.createEntityManager();
-                CriteriaBuilder cb = em.getCriteriaBuilder();
+                CriteriaBuilder cb = em.getCriteriaBuilder(); // p. 358
                 CriteriaQuery criteria = cb.createQuery();
 
                 Root<Item> i = criteria.from(Item.class);
-                i.fetch("bids", JoinType.LEFT);
+                i.fetch("bids", JoinType.LEFT); // p. 358
                 criteria.select(i);
 
                 List<Item> items = em.createQuery(criteria).getResultList();

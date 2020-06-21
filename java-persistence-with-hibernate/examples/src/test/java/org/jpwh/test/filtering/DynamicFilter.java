@@ -82,9 +82,10 @@ public class DynamicFilter extends JPATest {
                 org.hibernate.Filter filter = em.unwrap(Session.class)
                     .enableFilter("limitByUserRank");
 
-                filter.setParameter("currentUserRank", 0);
+                filter.setParameter("currentUserRank", 0); // p.393
 
                 {
+                    // p.393
                     List<Item> items = em.createQuery("select i from Item i").getResultList();
                     // select * from ITEM where 0 >=
                     //  (select u.RANK from USERS u  where u.ID = SELLER_ID)

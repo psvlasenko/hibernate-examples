@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+// p.392
 @Entity
 @org.hibernate.annotations.Filter(
     name = "limitByUserRank",

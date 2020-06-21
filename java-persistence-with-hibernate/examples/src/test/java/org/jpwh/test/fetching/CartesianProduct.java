@@ -98,6 +98,7 @@ public class CartesianProduct extends JPATest {
             long ITEM_ID = testData.items.getFirstId();
 
             Item item = em.find(Item.class, ITEM_ID);
+            // p. 350
             // select i.*, b.*, img.*
             //  from ITEM i
             //   left outer join BID b on b.ITEM_ID = i.ID

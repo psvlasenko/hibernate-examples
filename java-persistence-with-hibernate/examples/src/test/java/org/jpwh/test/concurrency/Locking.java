@@ -11,7 +11,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 import javax.persistence.LockTimeoutException;
 import javax.persistence.PersistenceException;
-import javax.persistence.PessimisticLockException;
 import javax.persistence.PessimisticLockScope;
 import javax.transaction.UserTransaction;
 import java.math.BigDecimal;
@@ -28,7 +27,7 @@ import static org.testng.Assert.assertTrue;
 
 public class Locking extends Versioning {
 
-    @Test
+    @Test // p. 322
     public void pessimisticReadWrite() throws Exception {
         final ConcurrencyTestData testData = storeCategoriesAndItems();
         Long[] CATEGORIES = testData.categories.identifiers;
@@ -50,7 +49,7 @@ public class Locking extends Versioning {
                  */
                 List<Item> items =
                     em.createQuery("select i from Item i where i.category.id = :catId")
-                        .setLockMode(LockModeType.PESSIMISTIC_READ)
+                        .setLockMode(LockModeType.PESSIMISTIC_READ)  // p. 322
                         .setHint("javax.persistence.lock.timeout", 5000)
                         .setParameter("catId", categoryId)
                         .getResultList();
@@ -180,7 +179,7 @@ public class Locking extends Versioning {
                 em.find(
                     Category.class,
                     CATEGORY_ID,
-                    LockModeType.PESSIMISTIC_WRITE,
+                    LockModeType.PESSIMISTIC_WRITE, // p. 324
                     hints
                 );
 

@@ -17,6 +17,7 @@ import java.util.List;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
+// p. 352
 public class Batch extends JPATest {
 
     @Override
@@ -92,7 +93,7 @@ public class Batch extends JPATest {
             List<Item> items = em.createQuery("select i from Item i").getResultList();
             // select * from ITEM
 
-            for (Item item : items) {
+            for (Item item : items) { // p. 352
                 assertNotNull(item.getSeller().getUsername());
                 // select * from USERS where ID in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             }
@@ -139,7 +140,7 @@ public class Batch extends JPATest {
             tx.begin();
             EntityManager em = JPA.createEntityManager();
 
-            List<Item> items = em.createQuery("select i from Item i").getResultList();
+            List<Item> items = em.createQuery("select i from Item i").getResultList(); // p. 353
             // select * from ITEM
 
             for (Item item : items) {

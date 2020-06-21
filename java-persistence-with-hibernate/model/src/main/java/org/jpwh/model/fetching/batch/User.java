@@ -8,8 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+// p. 352
 @Entity
-@org.hibernate.annotations.BatchSize(size = 10)
+@org.hibernate.annotations.BatchSize(size = 10) // p. 352
 @Table(name = "USERS")
 public class User {
 

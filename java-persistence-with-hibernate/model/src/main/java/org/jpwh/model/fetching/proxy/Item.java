@@ -67,7 +67,7 @@ public class Item {
     }
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY) // p. 337
     public User getSeller() {
         return seller;
     }
@@ -85,6 +85,7 @@ public class Item {
         this.categories = categories;
     }
 
+    // p. 341
     @OneToMany(mappedBy = "item")
     @org.hibernate.annotations.LazyCollection(
        org.hibernate.annotations.LazyCollectionOption.EXTRA

@@ -7,8 +7,9 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @org.hibernate.annotations.OptimisticLocking(
-    type = org.hibernate.annotations.OptimisticLockType.ALL)
-@org.hibernate.annotations.DynamicUpdate
+    type = org.hibernate.annotations.OptimisticLockType.ALL // p.317
+)
+@org.hibernate.annotations.DynamicUpdate // p.318
 public class Item {
 
     @Id

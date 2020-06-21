@@ -111,13 +111,13 @@ public class LazyProxyCollections extends JPATest {
             Long ITEM_ID = testData.items.getFirstId();
             Long USER_ID = testData.users.getFirstId();
 
-            {
+            { // p. 335
                 Item item = em.getReference(Item.class, ITEM_ID); // No SELECT
 
                 // Calling identifier getter (no field access!) doesn't trigger initialization
                 assertEquals(item.getId(), ITEM_ID);
 
-                // The class is runtime generated, named something like: Item_$$_javassist_1
+                // p.336 The class is runtime generated, named something like: Item_$$_javassist_1
                 assertNotEquals(item.getClass(), Item.class);
 
                 assertEquals(
@@ -126,11 +126,11 @@ public class LazyProxyCollections extends JPATest {
                 );
 
                 PersistenceUtil persistenceUtil = Persistence.getPersistenceUtil();
-                assertFalse(persistenceUtil.isLoaded(item));
+                assertFalse(persistenceUtil.isLoaded(item)); // p. 336
                 assertFalse(persistenceUtil.isLoaded(item, "seller"));
 
-                assertFalse(Hibernate.isInitialized(item));
-                // Would trigger initialization of item!
+                assertFalse(Hibernate.isInitialized(item)); // p. 337
+                // p.336 Would trigger initialization of item!
                 // assertFalse(Hibernate.isInitialized(item.getSeller()));
 
                 Hibernate.initialize(item);
@@ -151,7 +151,7 @@ public class LazyProxyCollections extends JPATest {
                 Item item = em.find(Item.class, ITEM_ID);
                 // select * from ITEM where ID = ?
 
-                /* 
+                /* p. 337
                    You can manually detach the data from the persistence context, or close the
                    persistence context and detach everything.
                  */
@@ -215,7 +215,7 @@ public class LazyProxyCollections extends JPATest {
 
             long ITEM_ID = testData.items.getFirstId();
 
-            {
+            { // p. 340
                 Item item = em.find(Item.class, ITEM_ID);
                 // select * from ITEM where ID = ?
 

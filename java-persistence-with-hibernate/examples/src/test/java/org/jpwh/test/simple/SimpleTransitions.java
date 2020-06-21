@@ -25,6 +25,7 @@ import java.util.concurrent.Executors;
 import static org.testng.Assert.*;
 import static org.testng.Assert.assertEquals;
 
+// p. 278, 279
 public class SimpleTransitions extends JPATest {
 
     @Override
@@ -32,7 +33,7 @@ public class SimpleTransitions extends JPATest {
         configurePersistenceUnit("SimplePU");
     }
 
-    @Test
+    @Test // p. 302
     public void basicUOW() {
         EntityManager em = null;
         UserTransaction tx = TM.getUserTransaction();
@@ -40,7 +41,7 @@ public class SimpleTransitions extends JPATest {
             tx.begin();
             em = JPA.createEntityManager(); // Application-managed
 
-            Item someItem = new Item();
+            var someItem = new Item();
             someItem.setName("Some Item");
             em.persist(someItem);
 
@@ -70,7 +71,7 @@ public class SimpleTransitions extends JPATest {
 
             tx.begin();
             em = JPA.createEntityManager();
-            Item item = new Item();
+            var item = new Item();
             item.setName("Some Item"); // Item#name is NOT NULL!
 
             em.persist(item);
@@ -97,7 +98,7 @@ public class SimpleTransitions extends JPATest {
         try {
             tx.begin();
             EntityManager em = JPA.createEntityManager();
-            Item someItem = new Item();
+            var someItem = new Item();
             someItem.setName("Some Item");
             em.persist(someItem);
             tx.commit();
@@ -159,7 +160,7 @@ public class SimpleTransitions extends JPATest {
             tx.begin();
             em = JPA.createEntityManager();
 
-            /* 
+            /* p. 282
                If the persistence context already contains an <code>Item</code> with the given identifier, that
                <code>Item</code> instance is returned by <code>getReference()</code> without hitting the database.
                Furthermore, if <em>no</em> persistent instance with that identifier is currently managed, a hollow
@@ -168,15 +169,14 @@ public class SimpleTransitions extends JPATest {
              */
             Item item = em.getReference(Item.class, ITEM_ID);
 
-            /* 
+            /*
                JPA offers <code>PersistenceUnitUtil</code> helper methods such as <code>isLoaded()</code> to
                detect if you are working with an uninitialized proxy.
             */
-            PersistenceUnitUtil persistenceUtil =
-                JPA.getEntityManagerFactory().getPersistenceUnitUtil();
+            PersistenceUnitUtil persistenceUtil = JPA.getEntityManagerFactory().getPersistenceUnitUtil();
             assertFalse(persistenceUtil.isLoaded(item));
 
-            /* 
+            /*
                As soon as you call any method such as <code>Item#getName()</code> on the proxy, a
                <code>SELECT</code> is executed to fully initialize the placeholder. The exception to this rule is
                a method that is a mapped database identifier getter method, such as <code>getId()</code>. A proxy
@@ -185,7 +185,7 @@ public class SimpleTransitions extends JPATest {
                initialized, an <code>EntityNotFoundException</code> will be thrown.
              */
             // assertEquals(item.getName(), "Some Item");
-            /* 
+            /*
                Hibernate has a convenient static <code>initialize()</code> method, loading the proxy's data.
              */
             // Hibernate.initialize(item);
@@ -193,7 +193,7 @@ public class SimpleTransitions extends JPATest {
             tx.commit();
             em.close();
 
-            /* 
+            /*
                After the persistence context is closed, <code>item</code> is in detached state. If you do
                not initialize the proxy while the persistence context is still open, you get a
                <code>LazyInitializationException</code> if you access the proxy. You can't load
@@ -212,7 +212,7 @@ public class SimpleTransitions extends JPATest {
         try {
             tx.begin();
             EntityManager em = JPA.createEntityManager();
-            Item someItem = new Item();
+            var someItem = new Item();
             someItem.setName("Some Item");
             em.persist(someItem);
             tx.commit();
@@ -221,7 +221,7 @@ public class SimpleTransitions extends JPATest {
 
             tx.begin();
             em = JPA.createEntityManager();
-            /* 
+            /*
                If you call <code>find()</code>, Hibernate will execute a <code>SELECT</code> to
                load the <code>Item</code>. If you call <code>getReference()</code>, Hibernate
                will attempt to avoid the <code>SELECT</code> and return a proxy.
@@ -229,7 +229,7 @@ public class SimpleTransitions extends JPATest {
             Item item = em.find(Item.class, ITEM_ID);
             //Item item = em.getReference(Item.class, ITEM_ID);
 
-            /* 
+            /* p. 283
                Calling <code>remove()</code> will queue the entity instance for deletion when
                the unit of work completes, it is now in <em>removed</em> state. If <code>remove()</code>
                is called on a proxy, Hibernate will execute a <code>SELECT</code> to load the data.
@@ -240,13 +240,13 @@ public class SimpleTransitions extends JPATest {
              */
             em.remove(item);
 
-            /* 
+            /* p. 283
                 An entity in removed state is no longer in persistent state, this can be
                 checked with the <code>contains()</code> operation.
              */
             assertFalse(em.contains(item));
 
-            /* 
+            /*
                You can make the removed instance persistent again, cancelling the deletion.
              */
             // em.persist(item);
@@ -254,7 +254,7 @@ public class SimpleTransitions extends JPATest {
             // hibernate.use_identifier_rollback was enabled, it now looks like a transient instance
             assertNull(item.getId());
 
-            /* 
+            /*
                When the transaction commits, Hibernate synchronizes the state transitions with the
                database and executes the SQL <code>DELETE</code>. The JVM garbage collector detects that the
                <code>item</code> is no longer referenced by anyone and finally deletes the last trace of
@@ -280,7 +280,7 @@ public class SimpleTransitions extends JPATest {
         try {
             tx.begin();
             EntityManager em = JPA.createEntityManager();
-            Item someItem = new Item();
+            var someItem = new Item();
             someItem.setName("Some Item");
             em.persist(someItem);
             tx.commit();
@@ -332,6 +332,7 @@ public class SimpleTransitions extends JPATest {
             }).get();
 
             String oldName = item.getName();
+            // p. 285
             em.refresh(item);
             assertNotEquals(item.getName(), oldName);
             assertEquals(item.getName(), "Concurrent Update Name");
@@ -344,6 +345,7 @@ public class SimpleTransitions extends JPATest {
         }
     }
 
+    // p. 286
     @Test(groups = {"H2", "POSTGRESQL", "ORACLE"})
     public void replicate() throws Exception {
 
@@ -352,7 +354,7 @@ public class SimpleTransitions extends JPATest {
             UserTransaction tx = TM.getUserTransaction();
             tx.begin();
             EntityManager em = JPA.createEntityManager();
-            Item someItem = new Item();
+            var someItem = new Item();
             someItem.setName("Some Item");
             em.persist(someItem);
             tx.commit();
@@ -363,7 +365,7 @@ public class SimpleTransitions extends JPATest {
         }
 
         UserTransaction tx = TM.getUserTransaction();
-        try {
+        try { // p. 286
             tx.begin();
 
             EntityManager emA = getDatabaseA().createEntityManager();
@@ -399,7 +401,7 @@ public class SimpleTransitions extends JPATest {
         try {
             tx.begin();
             EntityManager em = JPA.createEntityManager();
-            Item someItem = new Item();
+            var someItem = new Item();
             someItem.setName("Original Name");
             em.persist(someItem);
             tx.commit();
@@ -416,14 +418,11 @@ public class SimpleTransitions extends JPATest {
             Item item = em.find(Item.class, ITEM_ID);
             item.setName("New Name");
 
-            // Disable flushing before queries:
+            // p. 289 Disable flushing before queries:
             em.setFlushMode(FlushModeType.COMMIT);
 
-            assertEquals(
-                em.createQuery("select i.name from Item i where i.id = :id")
-                    .setParameter("id", ITEM_ID).getSingleResult(),
-                "Original Name"
-            );
+            var originalName = em.createQuery("select i.name from Item i where i.id = :id").setParameter("id", ITEM_ID).getSingleResult();
+            assertEquals(originalName, "Original Name");
 
             tx.commit(); // Flush!
             em.close();
@@ -432,13 +431,14 @@ public class SimpleTransitions extends JPATest {
         }
     }
 
+    // p. 290
     @Test
     public void scopeOfIdentity() throws Exception {
         UserTransaction tx = TM.getUserTransaction();
         try {
             tx.begin();
             EntityManager em = JPA.createEntityManager();
-            Item someItem = new Item();
+            var someItem = new Item();
             someItem.setName("Some Item");
             em.persist(someItem);
             tx.commit();
@@ -448,6 +448,7 @@ public class SimpleTransitions extends JPATest {
             tx.begin();
             em = JPA.createEntityManager();
 
+            // p. 290
             Item a = em.find(Item.class, ITEM_ID);
             Item b = em.find(Item.class, ITEM_ID);
             assertTrue(a == b);
@@ -480,6 +481,7 @@ public class SimpleTransitions extends JPATest {
         }
     }
 
+    // p. 294
     @Test
     public void detach() throws Exception {
         UserTransaction tx = TM.getUserTransaction();
@@ -487,7 +489,7 @@ public class SimpleTransitions extends JPATest {
             tx.begin();
             EntityManager em = JPA.createEntityManager();
 
-            User someUser = new User();
+            var someUser = new User();
             someUser.setUsername("johndoe");
             someUser.setHomeAddress(new Address("Some Street", "1234", "Some City"));
             em.persist(someUser);
@@ -500,7 +502,7 @@ public class SimpleTransitions extends JPATest {
 
             User user = em.find(User.class, USER_ID);
 
-            em.detach(user);
+            em.detach(user); // p. 294
 
             assertFalse(em.contains(user));
 
@@ -511,14 +513,14 @@ public class SimpleTransitions extends JPATest {
         }
     }
 
-    @Test
+    @Test // p. 296
     public void mergeDetached() throws Exception {
         UserTransaction tx = TM.getUserTransaction();
         try {
             tx.begin();
             EntityManager em = JPA.createEntityManager();
 
-            User detachedUser = new User();
+            var detachedUser = new User();
             detachedUser.setUsername("foo");
             detachedUser.setHomeAddress(new Address("Some Street", "1234", "Some City"));
             em.persist(detachedUser);
@@ -531,7 +533,7 @@ public class SimpleTransitions extends JPATest {
             tx.begin();
             em = JPA.createEntityManager();
 
-            User mergedUser = em.merge(detachedUser);
+            User mergedUser = em.merge(detachedUser); // p. 296
             // Discard 'detachedUser' reference after merging!
 
             // The 'mergedUser' is in persistent state

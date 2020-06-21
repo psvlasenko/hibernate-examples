@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+// p. 376
 @Entity
 @EntityListeners(
     PersistEntityListener.class

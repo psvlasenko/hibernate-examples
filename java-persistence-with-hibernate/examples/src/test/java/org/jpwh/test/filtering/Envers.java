@@ -22,6 +22,7 @@ import java.util.List;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNull;
 
+// p.386
 public class Envers extends JPATest {
 
     @Override
@@ -86,7 +87,8 @@ public class Envers extends JPATest {
             {
                 tx.begin();
                 EntityManager em = JPA.createEntityManager();
-                /* 
+                /*
+                   p.387
                    The main Envers API is the <code>AuditReader</code>, it can be accessed with
                    an <code>EntityManager</code>.
                  */
@@ -126,7 +128,8 @@ public class Envers extends JPATest {
 
                 em.clear();
                 {
-                    /* 
+                    /*
+                       p.388
                        If you don't know modification timestamps or revision numbers, you can write
                        a query with <code>forRevisionsOfEntity()</code> to obtain all audit trail
                        details of a particular entity.
@@ -209,7 +212,8 @@ public class Envers extends JPATest {
                     AuditQuery query = auditReader.createQuery()
                         .forEntitiesAtRevision(Item.class, revisionUpdate);
 
-                    /* 
+                    /*
+                       p.389
                        You can add further restrictions to the query; here the <code>Item#name</code>
                        must start with "Ba".
                      */
@@ -247,6 +251,7 @@ public class Envers extends JPATest {
                     AuditQuery query = auditReader.createQuery()
                         .forEntitiesAtRevision(Item.class, revisionUpdate);
 
+                    // p.390
                     query.addProjection(
                         AuditEntity.property("name")
                     );
@@ -258,9 +263,10 @@ public class Envers extends JPATest {
                 em.clear();
                 {
                     // TODO This fails with instrumented bytecode, Hibernate bug HHH-8600
-                    /*
+                    // test was commented in original version
                     User user = auditReader.find(User.class, USER_ID, revisionCreate);
 
+                    //p.390
                     em.unwrap(Session.class)
                         .replicate(user, ReplicationMode.OVERWRITE);
                     em.flush();
@@ -268,7 +274,6 @@ public class Envers extends JPATest {
 
                     user = em.find(User.class, USER_ID);
                     assertEquals(user.getUsername(), "johndoe");
-                    */
                 }
                 tx.commit();
                 em.close();

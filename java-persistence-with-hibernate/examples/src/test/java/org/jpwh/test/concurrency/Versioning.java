@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
+// import org.hibernate.annotations.OptimisticLock; // p. 316
 
 import static org.testng.Assert.assertEquals;
 
@@ -27,13 +28,14 @@ public class Versioning extends JPATest {
         configurePersistenceUnit("ConcurrencyVersioningPU");
     }
 
+    // p. 314
     @Test(expectedExceptions = OptimisticLockException.class)
     public void firstCommitWins() throws Throwable {
         UserTransaction tx = TM.getUserTransaction();
         try {
             tx.begin();
             EntityManager em = JPA.createEntityManager();
-            Item someItem = new Item("Some Item");
+            var someItem = new Item("Some Item");
             em.persist(someItem);
             tx.commit();
             em.close();
@@ -42,14 +44,14 @@ public class Versioning extends JPATest {
             tx.begin();
             em = JPA.createEntityManager();
 
-            /* 
+            /*
                Retrieving an entity instance by identifier loads the current version from the
                database with a <code>SELECT</code>.
              */
             Item item = em.find(Item.class, ITEM_ID);
             // select * from ITEM where ID = ?
 
-            /* 
+            /*
                The current version of the <code>Item</code> instance is 0.
              */
             assertEquals(item.getVersion(), 0);
@@ -86,7 +88,7 @@ public class Versioning extends JPATest {
                 }
             }).get();
 
-            /* 
+            /*
                When the persistence context is flushed Hibernate will detect the dirty
                <code>Item</code> instance and increment its version to 1. The SQL
                <code>UPDATE</code> now performs the version check, storing the new version
@@ -104,7 +106,7 @@ public class Versioning extends JPATest {
 
     // TODO This throws the wrong exception!
     // @Test(expectedExceptions = OptimisticLockException.class)
-    @Test(expectedExceptions = org.hibernate.OptimisticLockException.class)
+    @Test(expectedExceptions = org.hibernate.dialect.lock.OptimisticEntityLockException.class)
     public void manualVersionChecking() throws Throwable {
         final ConcurrencyTestData testData = storeCategoriesAndItems();
         Long[] CATEGORIES = testData.categories.identifiers;
@@ -117,7 +119,7 @@ public class Versioning extends JPATest {
             BigDecimal totalPrice = new BigDecimal(0);
             for (Long categoryId : CATEGORIES) {
 
-                /* 
+                /* p. 319
                    For each <code>Category</code>, query all <code>Item</code> instances with
                    an <code>OPTIMISTIC</code> lock mode. Hibernate now knows it has to
                    check each <code>Item</code> at flush time.
@@ -166,7 +168,7 @@ public class Versioning extends JPATest {
                 }
             }
 
-            /* 
+            /*
                For each <code>Item</code> loaded earlier with the locking query, Hibernate will
                now execute a <code>SELECT</code> during flushing. It checks if the database
                version of each <code>ITEM</code> row is still the same as when it was loaded
@@ -197,7 +199,7 @@ public class Versioning extends JPATest {
             tx.begin();
             EntityManager em = JPA.createEntityManager();
 
-            /* 
+            /* p. 321
                The <code>find()</code> method accepts a <code>LockModeType</code>. The
                <code>OPTIMISTIC_FORCE_INCREMENT</code> mode tells Hibernate that the version
                of the retrieved <code>Item</code> should be incremented after loading,
@@ -206,7 +208,7 @@ public class Versioning extends JPATest {
             Item item = em.find(
                 Item.class,
                 ITEM_ID,
-                LockModeType.OPTIMISTIC_FORCE_INCREMENT
+                LockModeType.OPTIMISTIC_FORCE_INCREMENT // p. 321
             );
 
             Bid highestBid = queryHighestBid(em, item);
@@ -250,7 +252,7 @@ public class Versioning extends JPATest {
             }).get();
 
             try {
-                /* 
+                /*
                    The code persists a new <code>Bid</code> instance; this does not affect
                    any values of the <code>Item</code> instance. A new row will be inserted
                    into the <code>BID</code> table. Hibernate would not detect concurrently
@@ -268,7 +270,7 @@ public class Versioning extends JPATest {
                 // Bid too low, show a validation error screen...
             }
 
-            /* 
+            /*
                When flushing the persistence context, Hibernate will execute an
                <code>INSERT</code> for the new <code>Bid</code> and force an
                <code>UPDATE</code> of the <code>Item</code> with a version check.

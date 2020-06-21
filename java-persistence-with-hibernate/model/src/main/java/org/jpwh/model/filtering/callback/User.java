@@ -10,9 +10,10 @@ import javax.persistence.PostPersist;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+// p.377
 @Entity
 @Table(name = "USERS")
-@ExcludeDefaultListeners
+@ExcludeDefaultListeners // // p.378
 public class User {
     @Id
     @GeneratedValue(generator = Constants.ID_GENERATOR)
@@ -40,7 +41,7 @@ public class User {
         this.username = username;
     }
 
-    @PostPersist
+    @PostPersist // p.377
     public void notifyAdmin(){
         User currentUser = CurrentUser.INSTANCE.get();
         Mail mail = Mail.INSTANCE;

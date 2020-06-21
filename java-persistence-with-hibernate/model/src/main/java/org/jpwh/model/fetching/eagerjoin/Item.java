@@ -26,7 +26,7 @@ public class Item {
     @NotNull
     protected Date auctionEnd;
 
-    @NotNull
+    @NotNull // p. 345
     @ManyToOne(fetch = FetchType.EAGER) // Actually the default
     protected User seller;
 

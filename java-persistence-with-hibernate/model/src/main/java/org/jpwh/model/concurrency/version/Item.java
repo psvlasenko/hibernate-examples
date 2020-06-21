@@ -14,7 +14,7 @@ public class Item implements Serializable {
     @GeneratedValue(generator = "ID_GENERATOR")
     protected Long id;
 
-    @Version
+    @Version // p. 314
     protected long version;
 
     @NotNull

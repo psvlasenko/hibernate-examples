@@ -7,6 +7,7 @@ import org.hibernate.event.spi.LoadEventListener;
 
 import java.io.Serializable;
 
+// p.383
 public class SecurityLoadListener extends DefaultLoadEventListener {
 
     public void onLoad(LoadEvent event, LoadEventListener.LoadType loadType)
@@ -34,5 +35,6 @@ public class SecurityLoadListener extends DefaultLoadEventListener {
             super(message);
         }
     }
+
 }
 

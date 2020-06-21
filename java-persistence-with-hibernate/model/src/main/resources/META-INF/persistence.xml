@@ -691,6 +691,7 @@
         <class>org.jpwh.model.filtering.interceptor.User</class>
         <class>org.jpwh.model.filtering.interceptor.AuditLogRecord</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <!-- p.384 -->
         <properties>
             <property name="hibernate.ejb.event.load"
                       value="org.jpwh.test.filtering.SecurityLoadListener"/>
