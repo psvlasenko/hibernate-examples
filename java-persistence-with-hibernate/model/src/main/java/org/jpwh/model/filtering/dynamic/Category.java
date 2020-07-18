@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
+// p.394
 @Entity
 public class Category {
 

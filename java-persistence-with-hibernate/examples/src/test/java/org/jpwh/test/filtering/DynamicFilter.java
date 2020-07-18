@@ -133,7 +133,7 @@ public class DynamicFilter extends JPATest {
                 org.hibernate.Filter filter = em.unwrap(Session.class)
                     .enableFilter("limitByUserRank");
 
-                filter.setParameter("currentUserRank", 0);
+                filter.setParameter("currentUserRank", 0); // p.395
                 Category category = em.find(Category.class, CATEGORY_ID);
                 assertEquals(category.getItems().size(), 1);
 
